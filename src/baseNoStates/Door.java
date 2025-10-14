@@ -43,9 +43,29 @@ public class Door {
         break;
       case Actions.LOCK:
         // TODO
+        if (closed && unlocked) {
+          locked = true;
+        } 
+        else if (open) {
+          System.out.println("Can't lock door " + id + " because it's open");
+        }
+        else if (closed && locked){
+          System.out.println("Can't lock door " + id + " because it's already locked");
+        }
+        break;
         // fall through
       case Actions.UNLOCK:
         // TODO
+        if (closed && unlocked) {
+          System.out.println("Can't unlock door " + id + " because it's already unlocked");
+        } 
+        else if (open) {
+          System.out.println("Can't unlock door " + id + " because it's open");
+        }
+        else if (closed && locked){
+          unlocked = true;
+        }
+        break;
         // fall through
       case Actions.UNLOCK_SHORTLY:
         // TODO

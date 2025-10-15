@@ -1,0 +1,39 @@
+package baseNoStates.DoorState;
+
+public class DoorStateLocked implements DoorState {
+    public DoorStateLocked() {
+        // void
+    }
+
+    @Override
+    public DoorState open(String id) {
+        System.out.println("Can't open door " + id + " because it's locked");
+        return this;
+    }
+
+    @Override
+    public DoorState close(String id) {
+        System.out.println("Can't close door " + id + " because it's already closed");
+        return this;
+    }
+
+    @Override
+    public DoorState lock(String id) {
+        System.out.println("Can't lock door " + id + " because it's already locked");
+        return this;
+    }
+
+    @Override
+    public DoorState unlock(String id) {
+        return new DoorStateClosed();
+    }
+
+    @Override
+    public DoorState unlockShortly(String id) {
+        return new DoorStateUnlockedShortly();
+    }
+
+    public boolean isClosed() {
+        return true;
+    }
+}

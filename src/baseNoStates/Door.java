@@ -1,12 +1,13 @@
 package baseNoStates;
 
 import baseNoStates.requests.RequestReader;
+import baseNoStates.DoorState.*;
 import org.json.JSONObject;
 
 
 public class Door {
     private final String id;
-    private DoorState state;
+    private baseNoStates.DoorState.DoorState state;
 
     public Door(String id) {
         this.id = id;
@@ -79,7 +80,32 @@ public class Door {
         System.exit(-1);
     }
     */
-        this.state = this.state.update(action, this.id);
+        switch (action) {
+            case Actions.OPEN:
+                this.state = this.state.open(this.id);
+                break;
+
+            case Actions.CLOSE:
+                this.state = this.state.close(id);
+                break;
+
+            case Actions.LOCK:
+                this.state = this.state.lock(id);
+                break;
+
+            case Actions.UNLOCK:
+                this.state.unlock(id);
+                break;
+            // fall through
+            case Actions.UNLOCK_SHORTLY:
+                // TODO
+                System.out.println("Action " + action + " not implemented yet");
+                break;
+                
+            default:
+                assert false : "Unknown action " + action;
+                System.exit(-1);
+        }
     }
 
     public boolean isClosed() {

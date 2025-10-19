@@ -44,9 +44,9 @@ public final class DirectoryAreas {
     }
 
     public static Door findDoorById(String id) {
-        for (Door door : allDoors) {
-            if (door.getId().equals(id)) {
-                return door;
+        for (int i = 0; i < allDoors.length; i++) {
+            if (allDoors[i].getId().equals(id)) {
+                return allDoors[i];
             }
         }
 

@@ -87,7 +87,7 @@ public class WebServer {
           }
 
           // Here is where we send the request and get the answer inside it
-          Request request = makeRequest(tokens); // PROBLEM HERE
+          Request request = makeRequest(tokens);
           if (request != null) {
             String typeRequest = tokens[0];
             System.out.println("created request " + typeRequest + " " + request);

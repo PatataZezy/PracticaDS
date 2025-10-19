@@ -113,7 +113,7 @@ public class Door {
                 break;
 
             case Actions.UNLOCK:
-                this.state.unlock(id);
+                this.state = this.state.unlock(id);
                 break;
             // fall through
             case Actions.UNLOCK_SHORTLY:

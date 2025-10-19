@@ -25,15 +25,15 @@ public final class DirectoryAreas {
         Space exterior = new Space("exterior", building);
 
         // Create doors
-        Door D1 = new Door("D1", parking);
-        Door D2 = new Door("D2", parking);
-        Door D3 = new Door("D3", hall);
-        Door D4 = new Door("D4", hall);
-        Door D5 = new Door("D5", room1);
-        Door D6 = new Door("D6", room2);
-        Door D7 = new Door("D7", corridor);
-        Door D8 = new Door("D8", room3);
-        Door D9 = new Door("D9", IT);
+        Door D1 = new Door("D1", exterior, parking);
+        Door D2 = new Door("D2", stairs, parking);
+        Door D3 = new Door("D3", exterior, hall);
+        Door D4 = new Door("D4", stairs, hall);
+        Door D5 = new Door("D5", hall, room1);
+        Door D6 = new Door("D6", hall, room2);
+        Door D7 = new Door("D7", stairs, corridor);
+        Door D8 = new Door("D8", corridor, room3);
+        Door D9 = new Door("D9", corridor, IT);
 
         rootArea = building;
         allDoors = new Door[]{D1, D2, D3, D4, D5, D6, D7, D8, D9};

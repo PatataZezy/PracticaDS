@@ -1,0 +1,73 @@
+@startuml
+'https://plantuml.com/class-diagram
+skinparam classAttributeIconSize 0
+
+package "DoorState" {
+    interface "DoorState" {
+        + {abstract} open() : DoorState
+        + {abstract} close() : DoorState
+        + {abstract} lock() : DoorState
+        + {abstract} unlock() : DoorState
+        + {abstract} unlockShortly() : DoorState
+        + {abstract} isClosed() : boolean
+        + {abstract} getState() : String
+    }
+
+    class "DoorStateOpen" {
+        + open() : DoorState
+        + close() : DoorState
+        + lock() : DoorState
+        + unlock() : DoorState
+        + unlockShortly() : DoorState
+        + isClosed() : boolean
+        + getState() : String
+    }
+
+    class "DoorStateClosed" {
+        + open() : DoorState
+        + close() : DoorState
+        + lock() : DoorState
+        + unlock() : DoorState
+        + unlockShortly() : DoorState
+        + isClosed() : boolean
+        + getState() : String
+    }
+
+    class "DoorStateLocked" {
+        + open() : DoorState
+        + close() : DoorState
+        + lock() : DoorState
+        + unlock() : DoorState
+        + unlockShortly() : DoorState
+        + isClosed() : boolean
+        + getState() : String
+    }
+
+    class "DoorStateUnlockedShortly" {
+        - isOpen : boolean
+        + open() : DoorState
+        + close() : DoorState
+        + lock() : DoorState
+        + unlock() : DoorState
+        + unlockShortly() : DoorState
+        + isClosed() : boolean
+        + getState() : String
+    }
+
+    class "DoorStatePropped" {
+        + open() : DoorState
+        + close() : DoorState
+        + lock() : DoorState
+        + unlock() : DoorState
+        + unlockShortly() : DoorState
+        + isClosed() : boolean
+        + getState() : String
+    }
+
+    "DoorState" <|... "DoorStateOpen"
+    "DoorState" <|... "DoorStateClosed"
+    "DoorState" <|... "DoorStateLocked"
+    "DoorState" <|... "DoorStateUnlockedShortly"
+    "DoorState" <|... "DoorStatePropped"
+}
+@enduml

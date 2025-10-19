@@ -75,7 +75,7 @@ public class RequestReader implements Request {
   // see if the request is authorized and put this into the request, then send it to the door.
   // if authorized, perform the action.
   public void process() {
-    User user = DirectoryUsers.findUserByCredential(credential);
+    User user = DirectoryUserGroups.findUserByCredential(credential);
     //Door door = DirectoryDoors.findDoorById(doorId);
     Door door = DirectoryAreas.findDoorById(doorId);
     assert door != null : "door " + doorId + " not found";
@@ -93,11 +93,26 @@ public class RequestReader implements Request {
     if (user == null) {
       authorized = false;
       addReason("user doesn't exists");
-    } else {
-      //TODO: get the who, where, when and what in order to decide, and if not
-      // authorized add the reason(s)
-      authorized = true;
     }
+    else {
+      if (!user.canSendRequests(now)) {
+        authorized = false;
+        addReason("User cannot make requests");
+      }
+      else if (!user.canBeInSpace(door.getSpaceComingFrom()) || !user.canBeInSpace(door.getSpaceLeadingTo())) {
+        authorized = false;
+        addReason("User cannot make requests regarding this space");
+      }
+      else if (!user.canDoAction(action)) {
+        authorized = false;
+        addReason("User cannot perform this action");
+      }
+      else {
+        authorized = true;
+      }
+    }
+
+    System.out.println(authorized ? 'T' : 'F');
   }
 }
 

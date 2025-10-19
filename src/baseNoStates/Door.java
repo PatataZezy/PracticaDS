@@ -19,10 +19,12 @@ public class Door {
         this.state = new DoorStateOpen();
     }
 
-    // Unfinished
-    public Door(String id, Space spaceLeadingTo) {
+    public Door(String id, Space spaceComingFrom, Space spaceLeadingTo) {
         this.id = id;
         this.state = new DoorStateOpen();
+
+        this.spaceComingFrom = spaceComingFrom;
+        this.spaceLeadingTo = spaceLeadingTo;
 
         spaceLeadingTo.addDoor(this);
     }
@@ -162,6 +164,14 @@ public class Door {
         json.put("state", getStateName());
         json.put("closed", this.isClosed());
         return json;
+    }
+
+    public Space getSpaceComingFrom() {
+        return this.spaceComingFrom;
+    }
+
+    public Space getSpaceLeadingTo() {
+        return this.spaceLeadingTo;
     }
 
     protected void startTimer() {

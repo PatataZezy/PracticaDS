@@ -37,7 +37,7 @@ public class DoorStatePropped implements DoorState {
 
     @Override
     public boolean isClosed() {
-        return true;
+        return false;
     }
 
     @Override

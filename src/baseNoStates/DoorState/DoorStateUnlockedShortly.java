@@ -1,25 +1,34 @@
 package baseNoStates.DoorState;
 
+import baseNoStates.Clock;
+
+import java.util.Observable;
+import java.util.Observer;
+
 // Temporary state where door is closed but not locked for a short period of time
-public class DoorStateUnlockedShortly implements DoorState {
+public class DoorStateUnlockedShortly implements DoorState{
+    boolean isOpen;
+
     public DoorStateUnlockedShortly() {
-        // void
+        isOpen = false;
     }
 
     @Override
     public DoorState open(String id) {
-        return new DoorStatePropped();
+        isOpen = true;
+        return this;
     }
 
     @Override
     public DoorState close(String id) {
-        System.out.println("Can't close door " + id + " because it's already closed");
+        isOpen = false;
         return this;
     }
 
     @Override
     public DoorState lock(String id) {
-        return new DoorStateLocked();
+        System.out.println("Can't lock door" + id + " because it's waiting for a clock timeout");
+        return this;
     }
 
     @Override
@@ -36,7 +45,7 @@ public class DoorStateUnlockedShortly implements DoorState {
 
     @Override
     public boolean isClosed() {
-        return true;
+        return !this.isOpen;
     }
 
     @Override

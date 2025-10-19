@@ -4,13 +4,14 @@ import baseNoStates.requests.RequestReader;
 import baseNoStates.DoorState.*;
 import org.json.JSONObject;
 
-
 public class Door {
     private final String id;
     private baseNoStates.DoorState.DoorState state;
 
     private Space spaceComingFrom;
     private Space spaceLeadingTo;
+
+    private Clock clock;
 
     // Kept for now, delete eventually
     public Door(String id) {
@@ -117,8 +118,15 @@ public class Door {
                 break;
             // fall through
             case Actions.UNLOCK_SHORTLY:
+                /*
                 // TODO
                 System.out.println("Action " + action + " not implemented yet");
+                break;
+                */
+                this.state = this.state.unlockShortly(id);
+                if (this.state.getState().equals("unlocked_shortly")) {
+                    this.startTimer();
+                }
                 break;
 
             default:
@@ -154,5 +162,16 @@ public class Door {
         json.put("state", getStateName());
         json.put("closed", this.isClosed());
         return json;
+    }
+
+    protected void startTimer() {
+        this.clock = new Clock(this, 10);
+        this.clock.start();
+    }
+
+    public void updateFromTimer() {
+        if (this.state.getState().equals("unlocked_shortly")) {
+            this.state = (this.state.isClosed() ? new DoorStateLocked() : new DoorStatePropped());
+        }
     }
 }

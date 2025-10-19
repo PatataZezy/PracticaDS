@@ -3,7 +3,27 @@ package baseNoStates;
 import java.util.ArrayList;
 
 public final class DirectoryUsers {
-  private static final ArrayList<User> users = new ArrayList<>();
+  private static final Map<String, User> users = new HashMap<>();
+  public static void addUser(User u) {
+        if (u != null && u.getId() != null) {
+            users.put(u.getId(), u);
+        }
+    }
+
+    public static User getUser(String id) {
+        return users.get(id);
+    }
+
+    public static Collection<User> getAllUsers() {
+        return users.values();
+    }
+
+    public static void buildSample() {
+        if (!users.isEmpty()) return;
+        addUser(new User("U1", "Alice"));
+        addUser(new User("U2", "Bob"));
+        addUser(new User("U3", "Charlie"));
+    }
 
   public static void makeUsers() {
     //TODO: make user groups according to the specifications in the comments, because

@@ -9,9 +9,21 @@ public class Door {
     private final String id;
     private baseNoStates.DoorState.DoorState state;
 
+    private Space spaceComingFrom;
+    private Space spaceLeadingTo;
+
+    // Kept for now, delete eventually
     public Door(String id) {
         this.id = id;
         this.state = new DoorStateOpen();
+    }
+
+    // Unfinished
+    public Door(String id, Space spaceLeadingTo) {
+        this.id = id;
+        this.state = new DoorStateOpen();
+
+        spaceLeadingTo.addDoor(this);
     }
 
     public void processRequest(RequestReader request) {
@@ -29,57 +41,64 @@ public class Door {
 
     private void doAction(String action) {
         /*
-    // Si esta en estat propped, temporitzador 10 segs
-    switch (action) {
-      case Actions.OPEN:
-        if (closed) {
-          closed = false;
-        } else {
-          System.out.println("Can't open door " + id + " because it's already open");
+        // Si esta en estat propped, temporitzador 10 segs
+        switch (action) {
+            case Actions.OPEN:
+                if (closed) {
+                    closed = false;
+                }
+                else {
+                    System.out.println("Can't open door " + id + " because it's already open");
+                }
+                break;
+
+            case Actions.CLOSE:
+                if (closed) {
+                    System.out.println("Can't close door " + id + " because it's already closed");
+                }
+                else {
+                    closed = true;
+                }
+                break;
+
+            case Actions.LOCK:
+                // TODO
+                if (closed && unlocked) {
+                    locked = true;
+                }
+                else if (open) {
+                    System.out.println("Can't lock door " + id + " because it's open");
+                }
+                else if (closed && locked){
+                    System.out.println("Can't lock door " + id + " because it's already locked");
+                }
+                break;
+
+            // fall through
+            case Actions.UNLOCK:
+                // TODO
+                if (closed && unlocked) {
+                    System.out.println("Can't unlock door " + id + " because it's already unlocked");
+                }
+                else if (open) {
+                    System.out.println("Can't unlock door " + id + " because it's open");
+                }
+                else if (closed && locked){
+                    unlocked = true;
+                }
+                break;
+
+                // fall through
+            case Actions.UNLOCK_SHORTLY:
+                // TODO
+                System.out.println("Action " + action + " not implemented yet");
+                break;
+
+            default:
+                assert false : "Unknown action " + action;
+                System.exit(-1);
         }
-        break;
-      case Actions.CLOSE:
-        if (closed) {
-          System.out.println("Can't close door " + id + " because it's already closed");
-        } else {
-          closed = true;
-        }
-        break;
-      case Actions.LOCK:
-        // TODO
-        if (closed && unlocked) {
-          locked = true;
-        } 
-        else if (open) {
-          System.out.println("Can't lock door " + id + " because it's open");
-        }
-        else if (closed && locked){
-          System.out.println("Can't lock door " + id + " because it's already locked");
-        }
-        break;
-        // fall through
-      case Actions.UNLOCK:
-        // TODO
-        if (closed && unlocked) {
-          System.out.println("Can't unlock door " + id + " because it's already unlocked");
-        } 
-        else if (open) {
-          System.out.println("Can't unlock door " + id + " because it's open");
-        }
-        else if (closed && locked){
-          unlocked = true;
-        }
-        break;
-        // fall through
-      case Actions.UNLOCK_SHORTLY:
-        // TODO
-        System.out.println("Action " + action + " not implemented yet");
-        break;
-      default:
-        assert false : "Unknown action " + action;
-        System.exit(-1);
-    }
-    */
+        */
         switch (action) {
             case Actions.OPEN:
                 this.state = this.state.open(this.id);
@@ -101,7 +120,7 @@ public class Door {
                 // TODO
                 System.out.println("Action " + action + " not implemented yet");
                 break;
-                
+
             default:
                 assert false : "Unknown action " + action;
                 System.exit(-1);
@@ -117,7 +136,7 @@ public class Door {
     }
 
     public String getStateName() {
-        return "unlocked";
+        return this.state.getState();
     }
 
     @Override

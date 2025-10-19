@@ -1,5 +1,6 @@
 package baseNoStates.DoorState;
 
+// State where door is closed and locked
 public class DoorStateLocked implements DoorState {
     public DoorStateLocked() {
         // void
@@ -33,7 +34,13 @@ public class DoorStateLocked implements DoorState {
         return new DoorStateUnlockedShortly();
     }
 
+    @Override
     public boolean isClosed() {
         return true;
+    }
+
+    @Override
+    public String getState() {
+        return "locked";
     }
 }

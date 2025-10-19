@@ -1,5 +1,6 @@
 package baseNoStates.DoorState;
 
+// Temporary state where door is closed but not locked for a short period of time
 public class DoorStateUnlockedShortly implements DoorState {
     public DoorStateUnlockedShortly() {
         // void
@@ -33,7 +34,13 @@ public class DoorStateUnlockedShortly implements DoorState {
         return this;
     }
 
+    @Override
     public boolean isClosed() {
         return true;
+    }
+
+    @Override
+    public String getState() {
+        return "unlocked_shortly";
     }
 }

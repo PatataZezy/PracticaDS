@@ -1,5 +1,6 @@
 package baseNoStates.DoorState;
 
+// State where door is propped (as in should be locked but is open)
 public class DoorStatePropped implements DoorState {
     public DoorStatePropped() {
         // void
@@ -34,7 +35,13 @@ public class DoorStatePropped implements DoorState {
         return this;
     }
 
+    @Override
     public boolean isClosed() {
         return true;
+    }
+
+    @Override
+    public String getState() {
+        return "propped";
     }
 }

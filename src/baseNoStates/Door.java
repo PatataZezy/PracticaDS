@@ -4,6 +4,7 @@ import baseNoStates.requests.RequestReader;
 import baseNoStates.DoorState.*;
 import org.json.JSONObject;
 
+// Handles all requests to a specific door
 public class Door {
     private final String id;
     private baseNoStates.DoorState.DoorState state;
@@ -29,6 +30,7 @@ public class Door {
         spaceLeadingTo.addDoor(this);
     }
 
+    // Takes in a request, executes only if it has been authorised beforehand
     public void processRequest(RequestReader request) {
         // it is the Door that process the request because the door has and knows
         // its state, and if closed or open
@@ -42,6 +44,8 @@ public class Door {
         request.setDoorStateName(getStateName());
     }
 
+    // Performs an already authorised action if possible
+    // (ex. can close door if open, but cannot open it even if authorised because it's already open)
     private void doAction(String action) {
         /*
         // Si esta en estat propped, temporitzador 10 segs
@@ -174,11 +178,13 @@ public class Door {
         return this.spaceLeadingTo;
     }
 
+    // Only called if is in unlocked shortly state, starts timer to lock or set as propped
     protected void startTimer() {
         this.clock = new Clock(this, 10);
         this.clock.start();
     }
 
+    // Called from clock when timer runs out (look Observer pattern)
     public void updateFromTimer() {
         if (this.state.getState().equals("unlocked_shortly")) {
             this.state = (this.state.isClosed() ? new DoorStateLocked() : new DoorStatePropped());

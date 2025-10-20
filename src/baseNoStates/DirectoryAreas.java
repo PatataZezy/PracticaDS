@@ -1,9 +1,11 @@
 package baseNoStates;
 
+// Static class containing a tree of all areas and doors
 public final class DirectoryAreas {
     private static Area rootArea;
     private static Door[] allDoors;
 
+    // Creates full area tree and array of all doors
     public static void makeAreas() {
         // Creating partitions/spaces
         Partition building = new Partition("building", null);

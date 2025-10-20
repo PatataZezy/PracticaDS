@@ -4,6 +4,7 @@ import baseNoStates.Space;
 
 import java.time.LocalDateTime;
 
+// Cannot perform any action at any time, yet is a recognised user
 public class NoPrivileges implements Privileges {
     public boolean canSendRequests(LocalDateTime now) {
         return false;

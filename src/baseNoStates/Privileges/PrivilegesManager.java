@@ -7,6 +7,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.Month;
 
+// Can perform any action, but only between 8AM and 8PM during workdays + saturday and between 2025/09/01 and 2026/02/28 (both included)
 public class PrivilegesManager implements Privileges {
     public boolean canSendRequests(LocalDateTime now) {
         if (now.getDayOfWeek() == DayOfWeek.SUNDAY) {

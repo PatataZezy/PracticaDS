@@ -4,6 +4,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.time.LocalDateTime;
 
+// Observable class for unlocked shortly doors, starts timer when state
+// is enabled and updates door's state accordingly when timer runs out
 public class Clock {
     private LocalDateTime date;
     private Timer timer;

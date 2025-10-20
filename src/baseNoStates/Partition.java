@@ -1,5 +1,6 @@
 package baseNoStates;
 
+// Area that contain other areas (ex. building contains basement, ground floor, etc.
 public class Partition extends Area {
     private Area[] subareas;
 

@@ -5,7 +5,7 @@ import baseNoStates.Clock;
 import java.util.Observable;
 import java.util.Observer;
 
-// Temporary state where door is closed but not locked for a short period of time
+// Temporary state where door is unlocked for a short period of time
 public class DoorStateUnlockedShortly implements DoorState{
     boolean isOpen;
 

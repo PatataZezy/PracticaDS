@@ -3,6 +3,7 @@ package baseNoStates.DoorState;
 /*
 Defines all functions a door state class should have
 Any door state class must implement this
+AKA state pattern
 */
 public interface DoorState {
     DoorState open(String id);

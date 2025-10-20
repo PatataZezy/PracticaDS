@@ -2,6 +2,7 @@ package baseNoStates;
 
 import java.time.LocalDateTime;
 
+// Contains all data relative to a user
 public class User {
     private final String name;
     private final String credential;
@@ -20,6 +21,7 @@ public class User {
         this.userGroup = userGroup;
     }
 
+    // Following are used to check if user is authorised to perform a certain action
     public boolean canSendRequests(LocalDateTime now) {
         return this.userGroup.canSendRequests(now);
     }

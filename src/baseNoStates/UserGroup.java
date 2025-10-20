@@ -4,6 +4,7 @@ import baseNoStates.Privileges.Privileges;
 
 import java.time.LocalDateTime;
 
+// Contains users within a group and their privileges
 public class UserGroup {
     private User[] users;
     private Privileges privileges;
@@ -23,6 +24,7 @@ public class UserGroup {
         return null;
     }
 
+    // Following are used to check if user is authorised to perform a certain action
     public boolean canSendRequests(LocalDateTime now) {
         return privileges.canSendRequests(now);
     }

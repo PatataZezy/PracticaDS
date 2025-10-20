@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.DayOfWeek;
 import java.time.Month;
 
+// Can unlock doors shortly, but only between 9AM and 5PM during workdays and between 2025/09/01 and 2026/02/28 (both included)
 public class PrivilegesEmployee implements Privileges {
     public boolean canSendRequests(LocalDateTime now) {
         if (now.getDayOfWeek() == DayOfWeek.SATURDAY || now.getDayOfWeek() == DayOfWeek.SUNDAY) {

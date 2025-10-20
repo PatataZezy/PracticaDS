@@ -5,9 +5,11 @@ import baseNoStates.Privileges.PrivilegesAdmin;
 import baseNoStates.Privileges.PrivilegesEmployee;
 import baseNoStates.Privileges.PrivilegesManager;
 
+// Static class containing all user groups and its users
 public final class DirectoryUserGroups {
     private static UserGroup[] userGroups;
 
+    // Creates all user groups
     public static void makeUserGroups() {
         // Without privileges
         User bernat = new User("Bernat", "12345");

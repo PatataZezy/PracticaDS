@@ -1,5 +1,6 @@
 package baseNoStates;
 
+// Defines an area with a specific ID
 public abstract class Area {
     protected final String id;
 

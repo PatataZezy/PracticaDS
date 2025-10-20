@@ -1,5 +1,6 @@
 package baseNoStates;
 
+// Area that contains all doors leading to it
 public class Space extends Area {
     Door[] doorsGivingAccess;
 

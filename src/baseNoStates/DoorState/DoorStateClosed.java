@@ -1,4 +1,5 @@
 package baseNoStates.DoorState;
+// Nombrar a solo closed
 
 // State where door is closed but not locked
 public class DoorStateClosed implements DoorState {

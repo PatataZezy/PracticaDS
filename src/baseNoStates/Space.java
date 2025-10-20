@@ -16,7 +16,7 @@ public class Space extends Area {
 
     @Override
     public Area findAreaById(String id) {
-        return (this.id == id) ? this : null;
+        return (this.id.equals(id)) ? this : null;
     }
 
     @Override

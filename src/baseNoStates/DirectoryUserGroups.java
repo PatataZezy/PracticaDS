@@ -1,9 +1,9 @@
 package baseNoStates;
 
 import baseNoStates.Privileges.NoPrivileges;
-import baseNoStates.Privileges.PrivilegesAdmin;
-import baseNoStates.Privileges.PrivilegesEmployee;
-import baseNoStates.Privileges.PrivilegesManager;
+import baseNoStates.Privileges.Admin;
+import baseNoStates.Privileges.Employee;
+import baseNoStates.Privileges.Manager;
 
 // Static class containing all user groups and its users
 public final class DirectoryUserGroups {
@@ -22,20 +22,20 @@ public final class DirectoryUserGroups {
         // Employees
         User ernest = new User("Ernest", "74984");
         User eulalia = new User("Eulalia", "43295");
-        UserGroup employees = new UserGroup(new User[]{ernest, eulalia}, new PrivilegesEmployee());
+        UserGroup employees = new UserGroup(new User[]{ernest, eulalia}, new Employee());
         ernest.setUserGroup(employees);
         eulalia.setUserGroup(employees);
 
         // Managers
         User manel = new User("Manel", "95783");
         User marta = new User("Marta", "05827");
-        UserGroup managers = new UserGroup(new User[]{manel, marta}, new PrivilegesManager());
+        UserGroup managers = new UserGroup(new User[]{manel, marta}, new Manager());
         manel.setUserGroup(managers);
         marta.setUserGroup(managers);
 
         // Admin
         User ana = new User("Ana", "11343");
-        UserGroup admin = new UserGroup(new User[]{ana}, new PrivilegesAdmin());
+        UserGroup admin = new UserGroup(new User[]{ana}, new Admin());
         ana.setUserGroup(admin);
 
         userGroups = new UserGroup[]{noPrivileges, employees, managers, admin};

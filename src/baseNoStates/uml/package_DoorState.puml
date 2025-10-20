@@ -3,7 +3,8 @@
 skinparam classAttributeIconSize 0
 
 package "DoorState" {
-    interface "DoorState" {
+    abstract class "DoorState" {
+        # doorId : String
         + {abstract} open() : DoorState
         + {abstract} close() : DoorState
         + {abstract} lock() : DoorState
@@ -13,7 +14,7 @@ package "DoorState" {
         + {abstract} getState() : String
     }
 
-    class "DoorStateOpen" {
+    class "Open" extends "DoorState" {
         + open() : DoorState
         + close() : DoorState
         + lock() : DoorState
@@ -23,7 +24,7 @@ package "DoorState" {
         + getState() : String
     }
 
-    class "DoorStateClosed" {
+    class "Closed" extends "DoorState" {
         + open() : DoorState
         + close() : DoorState
         + lock() : DoorState
@@ -33,7 +34,7 @@ package "DoorState" {
         + getState() : String
     }
 
-    class "DoorStateLocked" {
+    class "Locked" extends "DoorState" {
         + open() : DoorState
         + close() : DoorState
         + lock() : DoorState
@@ -43,7 +44,7 @@ package "DoorState" {
         + getState() : String
     }
 
-    class "DoorStateUnlockedShortly" {
+    class "UnlockedShortly" extends "DoorState" {
         - isOpen : boolean
         + open() : DoorState
         + close() : DoorState
@@ -54,7 +55,7 @@ package "DoorState" {
         + getState() : String
     }
 
-    class "DoorStatePropped" {
+    class "Propped" extends "DoorState" {
         + open() : DoorState
         + close() : DoorState
         + lock() : DoorState
@@ -63,11 +64,5 @@ package "DoorState" {
         + isClosed() : boolean
         + getState() : String
     }
-
-    "DoorState" <|... "DoorStateOpen"
-    "DoorState" <|... "DoorStateClosed"
-    "DoorState" <|... "DoorStateLocked"
-    "DoorState" <|... "DoorStateUnlockedShortly"
-    "DoorState" <|... "DoorStatePropped"
 }
 @enduml

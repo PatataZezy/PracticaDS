@@ -4,17 +4,17 @@ import baseNoStates.Space;
 
 import java.time.LocalDateTime;
 
-// Cannot perform any action at any time, yet is a recognised user
-public class NoPrivileges extends Privileges {
+// Can perform any action at any time
+public class Admin extends Privileges {
     public boolean canSendRequests(LocalDateTime now) {
-        return false;
+        return true;
     }
 
     public boolean canBeInSpace(Space space) {
-        return false;
+        return true;
     }
 
     public boolean canDoAction(String action) {
-        return false;
+        return true;
     }
 }

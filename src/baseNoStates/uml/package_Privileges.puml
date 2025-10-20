@@ -3,31 +3,32 @@
 skinparam classAttributeIconSize 0
 
 package "Privileges" {
-    interface "Privileges" {
+    abstract class "Privileges" {
         + {abstract} canSendRequests(now : LocalDateTime) : boolean
         + {abstract} canBeInSpace(space : Space) : boolean
         + {abstract} canDoAction(action : String) : boolean
+        # isWithinAllowedPeriod(now : LocalDateTime
     }
 
-    class NoPrivileges implements "Privileges" {
+    class NoPrivileges extends "Privileges" {
         + canSendRequests(now : LocalDateTime) : boolean
         + canBeInSpace(space : Space) : boolean
         + canDoAction(action : String) : boolean
     }
 
-    class PrivilegesEmployee implements "Privileges" {
+    class Employee extends "Privileges" {
         + canSendRequests(now : LocalDateTime) : boolean
         + canBeInSpace(space : Space) : boolean
         + canDoAction(action : String) : boolean
     }
 
-    class PrivilegesManager implements "Privileges" {
+    class Manager extends "Privileges" {
         + canSendRequests(now : LocalDateTime) : boolean
         + canBeInSpace(space : Space) : boolean
         + canDoAction(action : String) : boolean
     }
 
-    class PrivilegesAdmin implements "Privileges" {
+    class Admin extends "Privileges" {
         + canSendRequests(now : LocalDateTime) : boolean
         + canBeInSpace(space : Space) : boolean
         + canDoAction(action : String) : boolean

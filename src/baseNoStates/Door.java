@@ -17,12 +17,12 @@ public class Door {
     // Kept for now, delete eventually
     public Door(String id) {
         this.id = id;
-        this.state = new DoorStateOpen();
+        this.state = new Open(this.id);
     }
 
     public Door(String id, Space spaceComingFrom, Space spaceLeadingTo) {
         this.id = id;
-        this.state = new DoorStateOpen();
+        this.state = new Open(this.id);
 
         this.spaceComingFrom = spaceComingFrom;
         this.spaceLeadingTo = spaceLeadingTo;
@@ -108,28 +108,23 @@ public class Door {
         */
         switch (action) {
             case Actions.OPEN:
-                this.state = this.state.open(this.id);
+                this.state = this.state.open();
                 break;
 
             case Actions.CLOSE:
-                this.state = this.state.close(id);
+                this.state = this.state.close();
                 break;
 
             case Actions.LOCK:
-                this.state = this.state.lock(id);
+                this.state = this.state.lock();
                 break;
 
             case Actions.UNLOCK:
-                this.state = this.state.unlock(id);
+                this.state = this.state.unlock();
                 break;
             // fall through
             case Actions.UNLOCK_SHORTLY:
-                /*
-                // TODO
-                System.out.println("Action " + action + " not implemented yet");
-                break;
-                */
-                this.state = this.state.unlockShortly(id);
+                this.state = this.state.unlockShortly();
                 if (this.state.getState().equals("unlocked_shortly")) {
                     this.startTimer();
                 }
@@ -187,7 +182,7 @@ public class Door {
     // Called from clock when timer runs out (look Observer pattern)
     public void updateFromTimer() {
         if (this.state.getState().equals("unlocked_shortly")) {
-            this.state = (this.state.isClosed() ? new DoorStateLocked() : new DoorStatePropped());
+            this.state = (this.state.isClosed() ? new Locked(this.id) : new Propped(this.id));
         }
     }
 }

@@ -147,10 +147,10 @@ Clock -[hidden]left- Door
 
 
 package "DoorState" {
-    interface "DoorState"
+    abstract class "DoorState"
 }
 
 package Privileges {
-    interface "Privileges"
+    abstract class "Privileges"
 }
 @enduml

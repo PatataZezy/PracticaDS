@@ -1,5 +1,5 @@
 package baseNoStates.DoorState;
-
+// Renombrar a solo Locked
 // State where door is closed and locked
 public class DoorStateLocked implements DoorState {
     public DoorStateLocked() {

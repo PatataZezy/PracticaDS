@@ -1,0 +1,36 @@
+@startuml
+'https://plantuml.com/class-diagram
+skinparam classAttributeIconSize 0
+
+package "Privileges" {
+    interface "Privileges" {
+        + {abstract} canSendRequests(now : LocalDateTime) : boolean
+        + {abstract} canBeInSpace(space : Space) : boolean
+        + {abstract} canDoAction(action : String) : boolean
+    }
+
+    class NoPrivileges implements "Privileges" {
+        + canSendRequests(now : LocalDateTime) : boolean
+        + canBeInSpace(space : Space) : boolean
+        + canDoAction(action : String) : boolean
+    }
+
+    class PrivilegesEmployee implements "Privileges" {
+        + canSendRequests(now : LocalDateTime) : boolean
+        + canBeInSpace(space : Space) : boolean
+        + canDoAction(action : String) : boolean
+    }
+
+    class PrivilegesManager implements "Privileges" {
+        + canSendRequests(now : LocalDateTime) : boolean
+        + canBeInSpace(space : Space) : boolean
+        + canDoAction(action : String) : boolean
+    }
+
+    class PrivilegesAdmin implements "Privileges" {
+        + canSendRequests(now : LocalDateTime) : boolean
+        + canBeInSpace(space : Space) : boolean
+        + canDoAction(action : String) : boolean
+    }
+}
+@enduml

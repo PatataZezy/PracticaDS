@@ -84,6 +84,18 @@ class Door {
 
 Door --> "1" DoorState.DoorState : "state"
 
+class Clock {
+    - date : LocalDateTime
+    - timer : Timer
+    - period : int
+    - observer : Door
+    + Clock(observer : Door, period : int)
+    + start()
+    + stop()
+}
+
+Clock --> "1" Door : observer
+
 
 class DirectoryUserGroups {
     - {static} userGroups : UserGroup[]
@@ -115,6 +127,8 @@ class User {
     + canDoAction(action : String) : boolean
 }
 
+UserGroup --> "1" Privileges.Privileges : privileges
+
 
 class Main {
     + {static} main(args : String)
@@ -129,9 +143,14 @@ end note
 Main -[hidden]down- Webserver
 Webserver -[hidden]down- DirectoryAreas
 DirectoryAreas -[hidden]right- DirectoryUserGroups
+Clock -[hidden]left- Door
 
 
 package "DoorState" {
     interface "DoorState"
+}
+
+package Privileges {
+    interface "Privileges"
 }
 @enduml

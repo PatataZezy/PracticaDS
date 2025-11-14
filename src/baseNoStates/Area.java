@@ -1,3 +1,5 @@
+// In tis class we define what an area is and initialize values of the area, the area id, space and access to the doors
+
 package baseNoStates;
 
 public abstract class Area {

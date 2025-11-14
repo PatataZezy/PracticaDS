@@ -1,3 +1,5 @@
+// This class defines the different actions that can be done on a door
+
 package baseNoStates;
 
 public final class Actions {

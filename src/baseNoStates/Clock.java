@@ -1,3 +1,6 @@
+// This code does the functions of a clock: initializes values, obtains periods of time for doors,  
+// notifies the observer and stops the clock
+
 package baseNoStates;
 
 import java.util.Timer;

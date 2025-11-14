@@ -1,3 +1,5 @@
+// In this code we define all the available areas in tree format and define them as partitions
+
 package baseNoStates;
 
 public final class DirectoryAreas {

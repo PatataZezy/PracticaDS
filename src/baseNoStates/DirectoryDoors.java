@@ -1,3 +1,5 @@
+// In this code we define all the possible doors and their partitions
+
 package baseNoStates;
 
 import java.util.ArrayList;

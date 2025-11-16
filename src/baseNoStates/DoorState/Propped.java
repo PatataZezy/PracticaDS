@@ -1,38 +1,36 @@
 package baseNoStates.DoorState;
 
+import baseNoStates.Door;
+
 // State where door is propped (as in should be locked but is open)
 public class Propped extends DoorState {
-  public Propped(String doorId) {
-    super(doorId);
+  public Propped(Door door) {
+    super(door);
   }
 
   @Override
-  public DoorState open() {
-    System.out.println("Can't open door " + this.doorId + " because it's already open");
-    return this;
+  public void open() {
+    System.out.println("Can't open door " + this.door.getId() + " because it's already open");
   }
 
   @Override
-  public DoorState close() {
-    return new Locked(this.doorId);
+  public void close() {
+    this.door.setState(new Locked(this.door));
   }
 
   @Override
-  public DoorState lock() {
-    System.out.println("Can't lock door " + this.doorId + " because it's propped");
-    return this;
+  public void lock() {
+    System.out.println("Can't lock door " + this.door.getId() + " because it's propped");
   }
 
   @Override
-  public DoorState unlock() {
-    System.out.println("Can't unlock door " + this.doorId + " because it's propped");
-    return this;
+  public void unlock() {
+    System.out.println("Can't unlock door " + this.door.getId() + " because it's propped");
   }
 
   @Override
-  public DoorState unlockShortly() {
-    System.out.println("Can't unlock door " + this.doorId + " shortly because it's propped");
-    return this;
+  public void unlockShortly() {
+    System.out.println("Can't unlock door " + this.door.getId() + " shortly because it's propped");
   }
 
   @Override

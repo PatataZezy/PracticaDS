@@ -1,5 +1,6 @@
 package baseNoStates;
 
+import baseNoStates.DoorState.DoorState;
 import baseNoStates.DoorState.Locked;
 import baseNoStates.DoorState.Open;
 import baseNoStates.DoorState.Propped;
@@ -19,12 +20,12 @@ public class Door {
   // Kept for now, delete eventually
   public Door(String id) {
     this.id = id;
-    this.state = new Open(this.id);
+    this.state = new Open(this);
   }
 
   public Door(String id, Space spaceComingFrom, Space spaceLeadingTo) {
     this.id = id;
-    this.state = new Open(this.id);
+    this.state = new Open(this);
 
     this.spaceComingFrom = spaceComingFrom;
     this.spaceLeadingTo = spaceLeadingTo;
@@ -51,23 +52,23 @@ public class Door {
   private void doAction(String action) {
     switch (action) {
       case Actions.OPEN:
-        this.state = this.state.open();
+        this.state.open();
         break;
 
       case Actions.CLOSE:
-        this.state = this.state.close();
+        this.state.close();
         break;
 
       case Actions.LOCK:
-        this.state = this.state.lock();
+        this.state.lock();
         break;
 
       case Actions.UNLOCK:
-        this.state = this.state.unlock();
+        this.state.unlock();
         break;
 
       case Actions.UNLOCK_SHORTLY:
-        this.state = this.state.unlockShortly();
+        this.state.unlockShortly();
         if (this.state.getState().equals("unlocked_shortly")) {
           this.startTimer();
         }
@@ -125,7 +126,11 @@ public class Door {
   // Called from clock when timer runs out (look Observer pattern)
   public void updateFromTimer() {
     if (this.state.getState().equals("unlocked_shortly")) {
-      this.state = (this.state.isClosed() ? new Locked(this.id) : new Propped(this.id));
+      this.state = (this.state.isClosed() ? new Locked(this) : new Propped(this));
     }
+  }
+
+  public void setState(DoorState state) {
+    this.state = state;
   }
 }

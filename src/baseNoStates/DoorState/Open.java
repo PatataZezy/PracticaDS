@@ -1,38 +1,36 @@
 package baseNoStates.DoorState;
 
+import baseNoStates.Door;
+
 // State where door is simply open
 public class Open extends DoorState {
-  public Open(String doorId) {
-    super(doorId);
+  public Open(Door door) {
+    super(door);
   }
 
   @Override
-  public DoorState open() {
-    System.out.println("Can't open door " + this.doorId + " because it's already open");
-    return this;
+  public void open() {
+    System.out.println("Can't open door " + this.door.getId() + " because it's already open");
   }
 
   @Override
-  public DoorState close() {
-    return new Closed(this.doorId);
+  public void close() {
+    this.door.setState(new Closed(this.door));
   }
 
   @Override
-  public DoorState lock() {
-    System.out.println("Can't lock door " + this.doorId + " because it's open");
-    return this;
+  public void lock() {
+    System.out.println("Can't lock door " + this.door.getId() + " because it's open");
   }
 
   @Override
-  public DoorState unlock() {
-    System.out.println("Can't unlock " + this.doorId + " shortly because it's not closed");
-    return this;
+  public void unlock() {
+    System.out.println("Can't unlock " + this.door.getId() + " shortly because it's not closed");
   }
 
   @Override
-  public DoorState unlockShortly() {
-    System.out.println("Can't unlock " + this.doorId + " shortly because it's not closed");
-    return this;
+  public void unlockShortly() {
+    System.out.println("Can't unlock " + this.door.getId() + " shortly because it's not closed");
   }
 
   @Override

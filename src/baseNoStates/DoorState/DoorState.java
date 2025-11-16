@@ -1,26 +1,26 @@
 package baseNoStates.DoorState;
 
-/*
-Defines all functions a door state class should have
-Any door state class must implement this
-AKA state pattern
-*/
-public abstract class DoorState {
-  protected String doorId;
+import baseNoStates.Door;
 
-  public DoorState(String doorId) {
-    this.doorId = doorId;
+// Defines all functions a door state class should have
+// Any door state class must implement this
+// AKA state pattern
+public abstract class DoorState {
+  protected Door door;
+
+  public DoorState(Door door) {
+    this.door = door;
   }
 
-  public abstract DoorState open();
+  public abstract void open();
 
-  public abstract DoorState close();
+  public abstract void close();
 
-  public abstract DoorState lock();
+  public abstract void lock();
 
-  public abstract DoorState unlock();
+  public abstract void unlock();
 
-  public abstract DoorState unlockShortly();
+  public abstract void unlockShortly();
 
   public abstract boolean isClosed();
 

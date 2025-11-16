@@ -1,43 +1,38 @@
 package baseNoStates;
 
-// Area that contains all doors leading to it
+import java.util.ArrayList;
+
+// Area that contains all doors leading to it and no other areas within it
 public class Space extends Area {
-    Door[] doorsGivingAccess;
+  ArrayList<Door> doorsGivingAccess;
 
-    Space(String id, Partition father) {
-        super(id, father);
-        this.doorsGivingAccess = new Door[0];
+  Space(String id, Partition father) {
+    super(id, father);
+    this.doorsGivingAccess = new ArrayList<>();
+  }
+
+  @Override
+  public Door[] getDoorsGivingAccess() {
+    Door[] doorArray = new Door[this.doorsGivingAccess.size()];
+    for (int i = 0; i < this.doorsGivingAccess.size(); i++) {
+      doorArray[i] = this.doorsGivingAccess.get(i);
     }
+    return doorArray;
+  }
 
-    @Override
-    public Door[] getDoorsGivingAccess() {
-        return this.doorsGivingAccess;
-    }
+  @Override
+  public Area findAreaById(String id) {
+    return (this.id.equals(id)) ? this : null;
+  }
 
-    @Override
-    public Area findAreaById(String id) {
-        return (this.id.equals(id)) ? this : null;
-    }
+  @Override
+  public Space[] getSpaces() {
+    Space[] thisSpace = new Space[1];
+    thisSpace[0] = this;
+    return thisSpace;
+  }
 
-    @Override
-    public Space[] getSpaces() {
-        Space[] thisSpace = new Space[1];
-        thisSpace[0] = this;
-        return thisSpace;
-    }
-
-    public void addDoor(Door newDoor) {
-        // creating deep copy of doors array
-        Door[] currentDoors = new Door[this.doorsGivingAccess.length];
-        for (int i = 0; i < this.doorsGivingAccess.length; i++) {
-            currentDoors[i] = this.doorsGivingAccess[i];
-        }
-
-        // creating new array and filling
-        this.doorsGivingAccess = new Door[currentDoors.length + 1];
-        for (int i = 0; i < currentDoors.length; i++) {
-            this.doorsGivingAccess[i] = currentDoors[i];
-        }
-        this.doorsGivingAccess[this.doorsGivingAccess.length - 1] = newDoor;
-    }
+  public void addDoor(Door newDoor) {
+    this.doorsGivingAccess.add(newDoor);
+  }
 }

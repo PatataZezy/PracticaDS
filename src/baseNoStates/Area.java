@@ -1,24 +1,25 @@
 package baseNoStates;
 
-// Defines an area with a specific ID
-public abstract class Area {
-    protected final String id;
+// In tis class we define what an area is and initialize values of the area, the area id, space and
+// access to the doors
+public abstract class Area { 
+  protected final String id;
 
-    public Area(String id, Partition father) {
-        this.id = id;
+  public Area(String id, Partition father) {
+    this.id = id;
 
-        if (father != null) {
-            father.addArea(this);
-        }
+    if (father != null) {
+      father.addArea(this);
     }
+  }
 
-    public String getId() {
-        return this.id;
-    }
+  public String getId() {
+    return this.id;
+  }
 
-    public abstract Door[] getDoorsGivingAccess();
+  public abstract Door[] getDoorsGivingAccess();
 
-    public abstract Area findAreaById(String id);
+  public abstract Area findAreaById(String id);
 
-    public abstract Space[] getSpaces();
+  public abstract Space[] getSpaces();
 }

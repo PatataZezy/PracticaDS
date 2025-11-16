@@ -1,10 +1,11 @@
 package baseNoStates.requests;
 
-import baseNoStates.*;
-
+import baseNoStates.DirectoryAreas;
+import baseNoStates.DirectoryUserGroups;
+import baseNoStates.Door;
+import baseNoStates.User;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -76,7 +77,7 @@ public class RequestReader implements Request {
   // if authorized, perform the action.
   public void process() {
     User user = DirectoryUserGroups.findUserByCredential(credential);
-    //Door door = DirectoryDoors.findDoorById(doorId);
+    // Door door = DirectoryDoors.findDoorById(doorId);
     Door door = DirectoryAreas.findDoorById(doorId);
     assert door != null : "door " + doorId + " not found";
     authorize(user, door);
@@ -93,21 +94,18 @@ public class RequestReader implements Request {
     if (user == null) {
       authorized = false;
       addReason("user doesn't exists");
-    }
-    else {
+    } else {
       if (!user.canSendRequests(now)) {
         authorized = false;
         addReason("User cannot make requests");
-      }
-      else if (!user.canBeInSpace(door.getSpaceComingFrom()) || !user.canBeInSpace(door.getSpaceLeadingTo())) {
+      } else if (!user.canBeInSpace(door.getSpaceComingFrom())
+              || !user.canBeInSpace(door.getSpaceLeadingTo())) {
         authorized = false;
         addReason("User cannot make requests regarding this space");
-      }
-      else if (!user.canDoAction(action)) {
+      } else if (!user.canDoAction(action)) {
         authorized = false;
         addReason("User cannot perform this action");
-      }
-      else {
+      } else {
         authorized = true;
       }
     }

@@ -1,8 +1,9 @@
+// This class defines all functions a door state class should have and a getter to check its own state
+
 package baseNoStates.DoorState;
 
 import baseNoStates.Door;
 
-// Defines all functions a door state class should have
 // Any door state class must implement this
 // AKA state pattern
 public abstract class DoorState {

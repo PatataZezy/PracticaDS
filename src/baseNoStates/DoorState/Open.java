@@ -1,3 +1,6 @@
+// this class assumes all interactions door can make while the actual state is open, 
+// it has all states variations from open and a get state to check its own state
+
 package baseNoStates.DoorState;
 
 import baseNoStates.Door;

@@ -7,17 +7,20 @@ import baseNoStates.DoorState.Propped;
 import baseNoStates.requests.RequestReader;
 import org.json.JSONObject;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+
 // This class represents any one door in the building, and will process any action regarding it. It
 // is also used as observer class with class Clock for handling temporary unlocked doors (See
-// methods startTimer, updateFromTimer).
+// method updateFromTimer()).
 public class Door {
   private final String id;
   private baseNoStates.DoorState.DoorState state;
 
-  private Space spaceComingFrom;
-  private Space spaceLeadingTo;
+  private final Space spaceComingFrom;
+  private final Space spaceLeadingTo;
 
-  private Clock clock;
+  private LocalDateTime timerStart;
 
   public Door(String id, Space spaceComingFrom, Space spaceLeadingTo) {
     this.id = id;
@@ -25,6 +28,8 @@ public class Door {
 
     this.spaceComingFrom = spaceComingFrom;
     this.spaceLeadingTo = spaceLeadingTo;
+
+    this.timerStart = LocalDateTime.now();
 
     spaceLeadingTo.addDoor(this);
   }
@@ -71,7 +76,7 @@ public class Door {
       case Actions.UNLOCK_SHORTLY:
         this.state.unlockShortly();
         if (this.state.getState().equals("unlocked_shortly")) {
-          this.startTimer();
+          this.timerStart = LocalDateTime.now();
         }
         break;
 
@@ -118,17 +123,14 @@ public class Door {
     return this.spaceLeadingTo;
   }
 
-  // Only called if is in unlocked shortly state, starts timer to lock or set as propped
-  protected void startTimer() {
-    Loggers.logger1.debug("Timer at door " + this.id + "started");
-    this.clock = new Clock(this, 10);
-    this.clock.start();
+  private boolean unlockTimerRanOut(LocalDateTime now) {
+    return (this.state.getState().equals("unlocked_shortly"))
+        && (ChronoUnit.SECONDS.between(this.timerStart, now) >= 10);
   }
 
   // Called from clock when timer runs out (Observer pattern)
-  public void updateFromTimer() {
-    if (this.state.getState().equals("unlocked_shortly")) {
-      Loggers.logger1.debug("Timer at door " + this.id + "stopped");
+  public void updateFromTimer(LocalDateTime now) {
+    if (this.unlockTimerRanOut(now)) {
       this.state = (this.state.isClosed() ? new Locked(this) : new Propped(this));
       Loggers.logger1.info("Timer at door " + this.id + " ended, changing state to "
               + this.state.getState());

@@ -1,43 +1,32 @@
 package baseNoStates;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-// Observable class from design pattern Observer for unlocked shortly doors, starts timer when state
-// is enabled and updates door's state accordingly when timer runs out.
-public class Clock {
-  private LocalDateTime date;
-  private Timer timer;
-  private int period; // seconds
-  private Door observer;
+// Observable class from design pattern Observer for unlocked shortly doors, notifies observers at a
+// constant rate in case they may need to know the current time.
+public final class Clock {
+  private static final Timer timer = new Timer();
+  private static ArrayList<Door> observers = new ArrayList<>();
 
-  public Clock(Door observer, int period) {
-    this.observer = observer;
-    this.period = period;
-    timer = new Timer();
-  }
-
-  public void start() {
-    // Creates a new timer thread that counts up to 10 seconds and notifies its Door observer once
-    // it's finished.
+  public static void start() {
+    // Creates a new timer thread that notifies all Door observers at a constant rate (ex. 0.1
+    // seconds)
     TimerTask repeatedTask = new TimerTask() {
       public void run() { // instance of anonymous class
-        observer.updateFromTimer();
+        LocalDateTime now = LocalDateTime.now();
+        for (Door door : observers) {
+          door.updateFromTimer(now);
+        }
       }
     };
-    timer.schedule(repeatedTask, 1000L * period);
+    int refreshRate = 100; // Milliseconds
+    timer.scheduleAtFixedRate(repeatedTask, 0L, refreshRate);
   }
 
-  public void stop() {
-    timer.cancel();
-  }
-
-  public int getPeriod() {
-    return period;
-  }
-
-  public LocalDateTime getDate() {
-    return date;
+  public static void addObserver(Door door) {
+    observers.add(door);
   }
 }

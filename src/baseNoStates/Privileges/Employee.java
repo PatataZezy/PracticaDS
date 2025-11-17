@@ -5,7 +5,7 @@ import baseNoStates.Space;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 
-// A user assigned to this privilege level can unlock doors shortly, but only between 9AM and 5PM
+// A user assigned this privilege level can unlock doors shortly, but only between 9AM and 5PM
 // during workdays and between 2025/09/01 and 2026/02/28 (both included), and the door must not be
 // connected to the parking area
 public class Employee extends Privileges {

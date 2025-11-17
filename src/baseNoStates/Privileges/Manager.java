@@ -4,8 +4,8 @@ import baseNoStates.Space;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 
-// A user assigned to this privilege level can perform any action, but only between 8AM and 8PM
-// during workdays + saturday and between 2025/09/01 and 2026/02/28 (both included)
+// A user assigned this privilege level can perform any action, but only between 8AM and 8PM during
+// workdays + saturday and between 2025/09/01 and 2026/02/28 (both included)
 public class Manager extends Privileges {
   public boolean canSendRequests(LocalDateTime now) {
     if (now.getDayOfWeek() == DayOfWeek.SUNDAY) {

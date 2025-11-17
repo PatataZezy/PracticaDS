@@ -2,7 +2,9 @@ package baseNoStates;
 
 import java.util.ArrayList;
 
-// Area that contains all doors leading to it and no other areas within it
+// Area that contains all doors leading to it and no other areas within it. Part of design pattern
+// Composite to represent the space hierarchy, where any instance of this object will always be a
+// leaf, save for the doors.
 public class Space extends Area {
   ArrayList<Door> doorsGivingAccess;
 

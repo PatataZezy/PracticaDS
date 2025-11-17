@@ -2,7 +2,9 @@ package baseNoStates;
 
 import java.time.LocalDateTime;
 
-// Contains all data relative to a user
+// Represents any user logged into the system. If a request is received and no instance of this
+// class has the received credential value, it is immediately discarded, so no method from this
+// class has to account for such a case.
 public class User {
   private final String name;
   private final String credential;

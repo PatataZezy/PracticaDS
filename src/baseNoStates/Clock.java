@@ -4,8 +4,8 @@ import java.time.LocalDateTime;
 import java.util.Timer;
 import java.util.TimerTask;
 
-// Observable class for unlocked shortly doors, starts timer when state is enabled and updates
-// door's state accordingly when timer runs out.
+// Observable class from design pattern Observer for unlocked shortly doors, starts timer when state
+// is enabled and updates door's state accordingly when timer runs out.
 public class Clock {
   private LocalDateTime date;
   private Timer timer;
@@ -19,6 +19,8 @@ public class Clock {
   }
 
   public void start() {
+    // Creates a new timer thread that counts up to 10 seconds and notifies its Door observer once
+    // it's finished.
     TimerTask repeatedTask = new TimerTask() {
       public void run() { // instance of anonymous class
         observer.updateFromTimer();

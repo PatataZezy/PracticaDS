@@ -1,9 +1,7 @@
-// this class assumes all interactions door can make while the actual state is closed, 
-// it has all states variations from closed and a get state to check its own state
-
 package baseNoStates.DoorState;
 
 import baseNoStates.Door;
+import baseNoStates.Loggers;
 
 // State where door is closed but not locked
 public class Closed extends DoorState {
@@ -14,26 +12,29 @@ public class Closed extends DoorState {
   @Override
   public void open() {
     this.door.setState(new Open(this.door));
+    Loggers.logger1.info("Door " + this.door.getId() + " opened");
   }
 
   @Override
   public void close() {
-    System.out.println("Can't close door " + this.door.getId() + " because it's already closed");
+    Loggers.logger1.info("Can't close door " + this.door.getId() + " because it's already closed");
   }
 
   @Override
   public void lock() {
     this.door.setState(new Locked(this.door));
+    Loggers.logger1.info("Door " + this.door.getId() + " locked");
   }
 
   @Override
   public void unlock() {
-    System.out.println("Can't unlock door " + this.door.getId() + " because it's already unlocked");
+    Loggers.logger1.info("Can't unlock door " + this.door.getId()
+            + " because it's already unlocked");
   }
 
   @Override
   public void unlockShortly() {
-    System.out.println("Can't unlock " + this.door.getId() + " shortly because it's not locked");
+    Loggers.logger1.info("Can't unlock " + this.door.getId() + " shortly because it's not locked");
   }
 
   @Override

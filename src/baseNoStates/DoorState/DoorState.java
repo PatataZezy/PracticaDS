@@ -1,11 +1,9 @@
-// This class defines all functions a door state class should have and a getter to check its own state
-
 package baseNoStates.DoorState;
 
 import baseNoStates.Door;
 
-// Any door state class must implement this
-// AKA state pattern
+// This class represents in what state a specific door may be in (open, closed, locked, etc.).
+// Implements design pattern State with Door, as its state may change at any time.
 public abstract class DoorState {
   protected Door door;
 

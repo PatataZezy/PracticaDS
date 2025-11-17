@@ -4,10 +4,8 @@ import baseNoStates.Space;
 import java.time.LocalDateTime;
 import java.time.Month;
 
-// Defines all functions a privilege class should have
-// Any privilege class must implement this
-// AKA state pattern
-
+// This class represents the set of privileges any one user may have, and can decide whether it is
+// authorised to perform a certain action at a certain time or not. Implements design pattern State.
 public abstract class Privileges {
   public abstract boolean canSendRequests(LocalDateTime now);
 

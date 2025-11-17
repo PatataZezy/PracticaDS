@@ -1,6 +1,6 @@
 package baseNoStates;
 
-// Contains a tree of all areas and doors
+// Singleton that contains a tree of all areas and doors.
 public final class DirectoryAreas {
   private static Area rootArea;
   private static Door[] allDoors;
@@ -26,7 +26,7 @@ public final class DirectoryAreas {
     Space stairs = new Space("stairs", building);
     Space exterior = new Space("exterior", building);
 
-    // Create doors
+    // Creating doors
     Door d1 = new Door("D1", exterior, parking);
     Door d2 = new Door("D2", stairs, parking);
     Door d3 = new Door("D3", exterior, hall);

@@ -7,7 +7,9 @@ import baseNoStates.DoorState.Propped;
 import baseNoStates.requests.RequestReader;
 import org.json.JSONObject;
 
-// Handles all requests to a specific door
+// This class represents any one door in the building, and will process any action regarding it. It
+// is also used as observer class with class Clock for handling temporary unlocked doors (See
+// methods startTimer, updateFromTimer).
 public class Door {
   private final String id;
   private baseNoStates.DoorState.DoorState state;
@@ -16,12 +18,6 @@ public class Door {
   private Space spaceLeadingTo;
 
   private Clock clock;
-
-  // Kept for now, delete eventually
-  public Door(String id) {
-    this.id = id;
-    this.state = new Open(this);
-  }
 
   public Door(String id, Space spaceComingFrom, Space spaceLeadingTo) {
     this.id = id;
@@ -37,12 +33,17 @@ public class Door {
   public void processRequest(RequestReader request) {
     // it is the Door that process the request because the door has and knows
     // its state, and if closed or open
+    Loggers.logger1.debug("Processing request " + request.getCredentialTimeAction() + " at Door "
+            + this.id + "...");
     if (request.isAuthorized()) {
-      String action = request.getAction();
-      doAction(action);
+      Loggers.logger1.debug("Request at door " + this.id
+              + " " + request.getCredentialTimeAction()
+              + " authorised, proceeding to performing action...");
+      doAction(request.getAction());
     }
     if (!request.isAuthorized()) {
-      System.out.println("not authorized");
+      Loggers.logger1.info("Request at door " + this.id + " " + request.getCredentialTimeAction()
+              + " unauthorised");
     }
     request.setDoorStateName(getStateName());
   }
@@ -119,14 +120,18 @@ public class Door {
 
   // Only called if is in unlocked shortly state, starts timer to lock or set as propped
   protected void startTimer() {
+    Loggers.logger1.debug("Timer at door " + this.id + "started");
     this.clock = new Clock(this, 10);
     this.clock.start();
   }
 
-  // Called from clock when timer runs out (look Observer pattern)
+  // Called from clock when timer runs out (Observer pattern)
   public void updateFromTimer() {
     if (this.state.getState().equals("unlocked_shortly")) {
+      Loggers.logger1.debug("Timer at door " + this.id + "stopped");
       this.state = (this.state.isClosed() ? new Locked(this) : new Propped(this));
+      Loggers.logger1.info("Timer at door " + this.id + " ended, changing state to "
+              + this.state.getState());
     }
   }
 

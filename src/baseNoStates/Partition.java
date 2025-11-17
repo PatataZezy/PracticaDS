@@ -2,7 +2,9 @@ package baseNoStates;
 
 import java.util.ArrayList;
 
-// Area that contain other areas (ex. building contains basement, ground floor, etc.)
+// Area that contains other areas (ex. building contains basement, ground floor, etc.). Part of
+// design pattern Composite to represent the space hierarchy, where any instance of this object will
+// never be a leaf.
 public class Partition extends Area {
   private ArrayList<Area> subareas;
 

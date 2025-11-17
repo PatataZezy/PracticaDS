@@ -5,7 +5,7 @@ import baseNoStates.Privileges.Employee;
 import baseNoStates.Privileges.Manager;
 import baseNoStates.Privileges.NoPrivileges;
 
-// Contains all user groups and its users
+// Singleton that contains all user groups and its users
 public final class DirectoryUserGroups {
   private static UserGroup[] userGroups;
 
@@ -32,7 +32,7 @@ public final class DirectoryUserGroups {
     manel.setUserGroup(managers);
     marta.setUserGroup(managers);
 
-    // Admin
+    // Admins
     User ana = new User("Ana", "11343");
     UserGroup admin = new UserGroup(new User[]{ana}, new Admin());
     ana.setUserGroup(admin);

@@ -1,9 +1,9 @@
-// this class assumes all interactions door can make while the actual state is locked, 
-// it has all states variations from locked and a get state to check its own state
-
 package baseNoStates.DoorState;
 
 import baseNoStates.Door;
+import baseNoStates.Loggers;
+
+import java.util.logging.Logger;
 
 // State where door is closed and locked
 public class Locked extends DoorState {
@@ -13,27 +13,29 @@ public class Locked extends DoorState {
 
   @Override
   public void open() {
-    System.out.println("Can't open door " + this.door.getId() + " because it's locked");
+    Loggers.logger1.info("Can't open door " + this.door.getId() + " because it's locked");
   }
 
   @Override
   public void close() {
-    System.out.println("Can't close door " + this.door.getId() + " because it's already closed");
+    Loggers.logger1.info("Can't close door " + this.door.getId() + " because it's already closed");
   }
 
   @Override
   public void lock() {
-    System.out.println("Can't lock door " + this.door.getId() + " because it's already locked");
+    Loggers.logger1.info("Can't lock door " + this.door.getId() + " because it's already locked");
   }
 
   @Override
   public void unlock() {
     this.door.setState(new Closed(this.door));
+    Loggers.logger1.info("Door " + this.door.getId() + " unlocked");
   }
 
   @Override
   public void unlockShortly() {
     this.door.setState(new UnlockedShortly(this.door));
+    Loggers.logger1.info("Door " + this.door.getId() + " unlocked shortly");
   }
 
   @Override

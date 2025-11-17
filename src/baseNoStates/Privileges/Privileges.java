@@ -4,11 +4,10 @@ import baseNoStates.Space;
 import java.time.LocalDateTime;
 import java.time.Month;
 
-/*
-Defines all functions a privilege class should have
-Any privilege class must implement this
-AKA state pattern
-*/
+// Defines all functions a privilege class should have
+// Any privilege class must implement this
+// AKA state pattern
+
 public abstract class Privileges {
   public abstract boolean canSendRequests(LocalDateTime now);
 

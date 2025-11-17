@@ -33,7 +33,7 @@ class DirectoryAreas {
     + {static} findDoorById(id : String) : Door
 }
 
-DirectoryAreas --> "1" Area : "rootArea"
+DirectoryAreas *--> "1" Area : "rootArea"
 
 abstract class Area {
     - id : String
@@ -42,7 +42,7 @@ abstract class Area {
     + {abstract} getSpaces() : Space[]
 }
 
-class Partition {
+class Partition extends Area{
     - subareas : Area[]
     + getAllDoorsGivingAccess() : Door[]
     + findAreaById(id : String) : Area
@@ -50,10 +50,9 @@ class Partition {
     + addArea(newArea : Area)
 }
 
-Partition --> "*" Area : "subareas"
-Area <|-- Partition
+Partition *--> "1..*" Area : "subareas"
 
-class Space {
+class Space extends Area {
     - doorsGivingAccess : Door[]
     - subareas : Area[]
     + getAllDoorsGivingAccess() : Door[]
@@ -62,8 +61,7 @@ class Space {
     + addDoor(newDoor : Door)
 }
 
-Space --> "*" Door : "doorsGivingAccess"
-Area <|-- Space
+Space *--> "1..*" Door : "doorsGivingAccess"
 
 class Door {
     - id : String
@@ -82,7 +80,7 @@ class Door {
     + updateFromTimer()
 }
 
-Door --> "1" DoorState.DoorState : "state"
+Door *--> "1" DoorState.DoorState : "state"
 
 class Clock {
     - date : LocalDateTime
@@ -103,7 +101,7 @@ class DirectoryUserGroups {
     + {static} findUserByCredential(credential : String) : User
 }
 
-DirectoryUserGroups --> "*" UserGroup : "userGroups"
+DirectoryUserGroups *--> "1..*" UserGroup : "userGroups"
 
 class UserGroup {
     - users : User[]
@@ -114,7 +112,7 @@ class UserGroup {
     + canDoAction(action : String) : boolean
 }
 
-UserGroup --> "*" User : users
+UserGroup *--> "1..*" User : users
 
 class User {
     - name : String
@@ -127,7 +125,7 @@ class User {
     + canDoAction(action : String) : boolean
 }
 
-UserGroup --> "1" Privileges.Privileges : privileges
+UserGroup *--> "1" Privileges.Privileges : privileges
 
 
 class Main {

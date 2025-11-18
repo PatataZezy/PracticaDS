@@ -1,5 +1,7 @@
 package baseNoStates;
 
+import baseNoStates.AreaVisitors.AreaVisitor;
+
 import java.util.ArrayList;
 
 // In this class we define what an area is and initialize values of the area, the area id, space and
@@ -24,4 +26,10 @@ public abstract class Area {
   public abstract Area findAreaById(String id);
 
   public abstract ArrayList<Space> getSpaces();
+
+  protected abstract void processVisitor(AreaVisitor visitor);
+
+  public void acceptVisitor(AreaVisitor visitor) {
+    this.processVisitor(visitor);
+  }
 }

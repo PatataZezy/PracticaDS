@@ -1,5 +1,7 @@
 package baseNoStates;
 
+import baseNoStates.AreaVisitors.AreaVisitor;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -61,5 +63,9 @@ public final class DirectoryAreas {
 
   public static ArrayList<Door> getAllDoors() {
     return allDoors;
+  }
+
+  public static void acceptTreeVisitor(AreaVisitor visitor) {
+    rootArea.acceptVisitor(visitor);
   }
 }

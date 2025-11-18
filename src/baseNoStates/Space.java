@@ -1,5 +1,7 @@
 package baseNoStates;
 
+import baseNoStates.AreaVisitors.AreaVisitor;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,5 +33,9 @@ public class Space extends Area {
 
   public void addDoor(Door newDoor) {
     this.doorsGivingAccess.add(newDoor);
+  }
+
+  protected void processVisitor(AreaVisitor visitor) {
+    visitor.visitSpace(this);
   }
 }

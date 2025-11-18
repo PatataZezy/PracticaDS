@@ -1,5 +1,7 @@
 package baseNoStates;
 
+import baseNoStates.AreaVisitors.AreaVisitor;
+
 import java.util.ArrayList;
 
 // Area that contains other areas (ex. building contains basement, ground floor, etc.). Part of
@@ -51,5 +53,9 @@ public class Partition extends Area {
 
   public void addArea(Area newArea) {
     this.subareas.add(newArea);
+  }
+
+  protected void processVisitor(AreaVisitor visitor) {
+    visitor.visitPartition(this);
   }
 }

@@ -1,6 +1,7 @@
 package baseNoStates;
 
 import java.util.ArrayList;
+import java.util.List;
 
 // Area that contains all doors leading to it and no other areas within it. Part of design pattern
 // Composite to represent the space hierarchy, where any instance of this object will always be a
@@ -14,12 +15,8 @@ public class Space extends Area {
   }
 
   @Override
-  public Door[] getDoorsGivingAccess() {
-    Door[] doorArray = new Door[this.doorsGivingAccess.size()];
-    for (int i = 0; i < this.doorsGivingAccess.size(); i++) {
-      doorArray[i] = this.doorsGivingAccess.get(i);
-    }
-    return doorArray;
+  public ArrayList<Door> getDoorsGivingAccess() {
+    return this.doorsGivingAccess;
   }
 
   @Override
@@ -28,10 +25,8 @@ public class Space extends Area {
   }
 
   @Override
-  public Space[] getSpaces() {
-    Space[] thisSpace = new Space[1];
-    thisSpace[0] = this;
-    return thisSpace;
+  public ArrayList<Space> getSpaces() {
+    return new ArrayList<>(List.of(this));
   }
 
   public void addDoor(Door newDoor) {

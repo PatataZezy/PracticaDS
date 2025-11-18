@@ -1,5 +1,7 @@
 package baseNoStates;
 
+import java.util.ArrayList;
+
 // In this class we define what an area is and initialize values of the area, the area id, space and
 // access to the doors. Part of design pattern Composite to represent the space hierarchy.
 public abstract class Area { 
@@ -17,9 +19,9 @@ public abstract class Area {
     return this.id;
   }
 
-  public abstract Door[] getDoorsGivingAccess();
+  public abstract ArrayList<Door> getDoorsGivingAccess();
 
   public abstract Area findAreaById(String id);
 
-  public abstract Space[] getSpaces();
+  public abstract ArrayList<Space> getSpaces();
 }

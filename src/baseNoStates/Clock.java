@@ -9,7 +9,7 @@ import java.util.TimerTask;
 // constant rate in case they may need to know the current time.
 public final class Clock {
   private static final Timer timer = new Timer();
-  private static ArrayList<Door> observers = new ArrayList<>();
+  private static ArrayList<Door> observers;
 
   public static void start() {
     // Creates a new timer thread that notifies all Door observers at a constant rate (ex. 0.1
@@ -26,7 +26,7 @@ public final class Clock {
     timer.scheduleAtFixedRate(repeatedTask, 0L, refreshRate);
   }
 
-  public static void addObserver(Door door) {
-    observers.add(door);
+  public static void addObservers(ArrayList<Door> doors) {
+    observers = doors;
   }
 }

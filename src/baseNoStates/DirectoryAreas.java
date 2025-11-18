@@ -1,9 +1,12 @@
 package baseNoStates;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 // Singleton that contains a tree of all areas and doors.
 public final class DirectoryAreas {
   private static Area rootArea;
-  private static Door[] allDoors;
+  private static ArrayList<Door> allDoors;
 
   // Creates full area tree and array of all doors
   public static void makeAreas() {
@@ -37,19 +40,10 @@ public final class DirectoryAreas {
     Door d8 = new Door("D8", corridor, room3);
     Door d9 = new Door("D9", corridor, it);
 
-    // Adding all doors to Clock observers list
-    Clock.addObserver(d1);
-    Clock.addObserver(d2);
-    Clock.addObserver(d3);
-    Clock.addObserver(d4);
-    Clock.addObserver(d5);
-    Clock.addObserver(d6);
-    Clock.addObserver(d7);
-    Clock.addObserver(d8);
-    Clock.addObserver(d9);
-
     rootArea = building;
-    allDoors = new Door[]{d1, d2, d3, d4, d5, d6, d7, d8, d9};
+    allDoors = new ArrayList<>(Arrays.asList(d1, d2, d3, d4, d5, d6, d7, d8, d9));
+
+    Clock.addObservers(allDoors);
   }
 
   public static Area findAreaById(String id) {
@@ -62,11 +56,10 @@ public final class DirectoryAreas {
         return allDoor;
       }
     }
-
     return null;
   }
 
-  public static Door[] getAllDoors() {
+  public static ArrayList<Door> getAllDoors() {
     return allDoors;
   }
 }

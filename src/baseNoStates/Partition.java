@@ -14,24 +14,12 @@ public class Partition extends Area {
   }
 
   @Override
-  public Door[] getDoorsGivingAccess() {
-    // figuring out final array size
-    int arraySize = 0;
-    for (Area area : this.subareas) {
-      arraySize += area.getDoorsGivingAccess().length;
-    }
-
-    // creating array and filling
-    Door[] allDoors = new Door[arraySize];
-    int index = 0;
+  public ArrayList<Door> getDoorsGivingAccess() {
+    ArrayList<Door> allDoors = new ArrayList<>();
     for (Area subarea : this.subareas) {
-      Door[] subareaDoors = subarea.getDoorsGivingAccess();
-      for (Door subareaDoor : subareaDoors) {
-        allDoors[index] = subareaDoor;
-        index++;
-      }
+      ArrayList<Door> subareaDoors = subarea.getDoorsGivingAccess();
+      allDoors.addAll(subareaDoors);
     }
-
     return allDoors;
   }
 
@@ -51,22 +39,11 @@ public class Partition extends Area {
   }
 
   @Override
-  public Space[] getSpaces() {
-    // figuring out final array size
-    int arraySize = 0;
+  public ArrayList<Space> getSpaces() {
+    ArrayList<Space> allSpaces = new ArrayList<>();
     for (Area subarea : this.subareas) {
-      arraySize += subarea.getSpaces().length;
-    }
-
-    // creating array and filling
-    Space[] allSpaces = new Space[arraySize];
-    int index = 0;
-    for (Area subarea : this.subareas) {
-      Space[] subareaDoors = subarea.getSpaces();
-      for (Space subareaDoor : subareaDoors) {
-        allSpaces[index] = subareaDoor;
-        index++;
-      }
+      ArrayList<Space> subareaDoors = subarea.getSpaces();
+      allSpaces.addAll(subareaDoors);
     }
 
     return allSpaces;

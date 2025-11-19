@@ -15,44 +15,12 @@ public class Partition extends Area {
     this.subareas = new ArrayList<>();
   }
 
-  @Override
-  public ArrayList<Door> getDoorsGivingAccess() {
-    ArrayList<Door> allDoors = new ArrayList<>();
-    for (Area subarea : this.subareas) {
-      ArrayList<Door> subareaDoors = subarea.getDoorsGivingAccess();
-      allDoors.addAll(subareaDoors);
-    }
-    return allDoors;
-  }
-
-  @Override
-  public Area findAreaById(String id) {
-    if (this.id.equals(id)) {
-      return this;
-    }
-
-    for (Area subarea : this.subareas) {
-      if (subarea.findAreaById(id) != null) {
-        return subarea.findAreaById(id);
-      }
-    }
-
-    return null;
-  }
-
-  @Override
-  public ArrayList<Space> getSpaces() {
-    ArrayList<Space> allSpaces = new ArrayList<>();
-    for (Area subarea : this.subareas) {
-      ArrayList<Space> subareaDoors = subarea.getSpaces();
-      allSpaces.addAll(subareaDoors);
-    }
-
-    return allSpaces;
-  }
-
   public void addArea(Area newArea) {
     this.subareas.add(newArea);
+  }
+
+  public ArrayList<Area> getSubareas() {
+    return this.subareas;
   }
 
   protected void processVisitor(AreaVisitor visitor) {

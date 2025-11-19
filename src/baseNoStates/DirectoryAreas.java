@@ -48,10 +48,6 @@ public final class DirectoryAreas {
     Clock.addObservers(allDoors);
   }
 
-  public static Area findAreaById(String id) {
-    return rootArea.findAreaById(id);
-  }
-
   public static Door findDoorById(String id) {
     for (Door allDoor : allDoors) {
       if (allDoor.getId().equals(id)) {

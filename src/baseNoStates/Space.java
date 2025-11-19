@@ -16,19 +16,8 @@ public class Space extends Area {
     this.doorsGivingAccess = new ArrayList<>();
   }
 
-  @Override
   public ArrayList<Door> getDoorsGivingAccess() {
     return this.doorsGivingAccess;
-  }
-
-  @Override
-  public Area findAreaById(String id) {
-    return (this.id.equals(id)) ? this : null;
-  }
-
-  @Override
-  public ArrayList<Space> getSpaces() {
-    return new ArrayList<>(List.of(this));
   }
 
   public void addDoor(Door newDoor) {

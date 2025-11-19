@@ -1,6 +1,5 @@
 package baseNoStates.AreaVisitors;
 
-import baseNoStates.Area;
 import baseNoStates.Partition;
 import baseNoStates.Space;
 

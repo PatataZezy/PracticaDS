@@ -1,4 +1,4 @@
-// In this code we define all the available areas in tree format and define them as partitions
+// In this code we define all the available areas in tree format and define them as partitions in the building
 
 package baseNoStates;
 

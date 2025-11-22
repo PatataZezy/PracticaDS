@@ -1,0 +1,36 @@
+@startuml
+'https://plantuml.com/class-diagram
+skinparam classAttributeIconSize 0
+
+package "DoorState" {
+    interface "DoorState" {
+        + {abstract} visitPartition(partition : Partition)
+        + {abstract} visitSpace(space : Space)
+    }
+
+    class "GetAreaByIdVisitor" implements "DoorState" {
+        - area : Area
+        - searchedId : String
+        + visitPartition(partition : Partition)
+        + visitSpace(space : Space)
+        + getResult() : Area
+    }
+
+    class "GetDoorsUnderPartitionVisitor" implements "DoorState" {
+        - doors : Door[]
+        - searchedId : String
+        + visitPartition(partition : Partition)
+        + visitSpace(space : Space)
+        + getResult() : Door[]
+    }
+
+    class "GetSpacesInAreaVisitor" implements "DoorState" {
+        - spaces = Space[]
+        - searchedId : String
+        - isInDesiredArea : boolean
+        + visitPartition(partition : Partition)
+        + visitSpace(space : Space)
+        + getResult() : Space
+    }
+}
+@enduml

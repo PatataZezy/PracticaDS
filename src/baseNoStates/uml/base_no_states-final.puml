@@ -29,36 +29,32 @@ class DirectoryAreas {
     - {static} rootArea : Area
     - {static} allDoors : Door[]
     + {static} makeAreas()
-    + {static} findAreaById(id : String) : Area
     + {static} findDoorById(id : String) : Door
+    + {static} acceptTreeVisitor(visitor : AreaVisitor)
 }
 
 DirectoryAreas *--> "1" Area : "rootArea"
 
 abstract class Area {
     - id : String
-    + {abstract} getAllDoorsGivingAccess() : Door[]
-    + {abstract} findAreaById(id : String) : Area
-    + {abstract} getSpaces() : Space[]
+    # {abstract} processVisitor(visitor : AreaVisitor)
+    + acceptVisitor(visitor : AreaVisitor)
 }
 
-class Partition extends Area{
+class Partition extends Area {
     - subareas : Area[]
-    + getAllDoorsGivingAccess() : Door[]
-    + findAreaById(id : String) : Area
-    + getSpaces() : Space[]
+    + getSubareas(newArea : Area) : Space[]
     + addArea(newArea : Area)
+    # processVisitor(visitor : AreaVisitor)
 }
 
 Partition *--> "1..*" Area : "subareas"
 
 class Space extends Area {
     - doorsGivingAccess : Door[]
-    - subareas : Area[]
-    + getAllDoorsGivingAccess() : Door[]
-    + findAreaById(id : String) : Area
-    + getSpaces() : Space[]
+    + getDoorsGivingAccess() : Door[]
     + addDoor(newDoor : Door)
+    # processVisitor(visitor : AreaVisitor)
 }
 
 Space *--> "1..*" Door : "doorsGivingAccess"
@@ -67,32 +63,25 @@ class Door {
     - id : String
     - state : DoorState
     - spaceComingFrom : Space
-    - spaceGoingTo : Space
-    - clock : Clock
-    + Door(id : String)
+    - spaceLeadingTo : Space
+    - timerStart : LocalDateTime
+    + Door(id : String, spaceComingFrom : Space, spaceLeadingTo : Space)
     + processRequest(request : RequestReader)
     - doAction(action : String)
     + toJson() : JSONObject
-    '+ toString() : String
-    '+ isClosed() :boolean
-    '+ setClosed(b : boolean)
-    '+ getStateName() : String
     + updateFromTimer()
 }
 
 Door *--> "1" DoorState.DoorState : "state"
 
 class Clock {
-    - date : LocalDateTime
-    - timer : Timer
-    - period : int
-    - observer : Door
-    + Clock(observer : Door, period : int)
-    + start()
-    + stop()
+    - {static} timer : Timer
+    - {static} observers : Door[]
+    + {static} start()
+    + {static} addObservers(doors : Door[])
 }
 
-Clock --> "1" Door : observer
+Clock o--> "1..*" Door : observers
 
 
 class DirectoryUserGroups {
@@ -132,9 +121,15 @@ class Main {
     + {static} main(args : String)
 }
 
+class Loggers {
+    + {static} logger1 : Logger
+    + {static} logger2 : Logger
+}
+
 note right of Main::main
     DirectoryAreas.makeAreas()
     DiretoryUserGroups.makeUserGroups()
+    Clock.start()
     new Webserver()
 end note
 
@@ -151,4 +146,11 @@ package "DoorState" {
 package Privileges {
     abstract class "Privileges"
 }
+
+package AreaVisitors {
+    interface "AreaVisitor"
+}
+
+Area --> AreaVisitors.AreaVisitor
+
 @enduml

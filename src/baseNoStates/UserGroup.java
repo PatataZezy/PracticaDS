@@ -19,7 +19,6 @@ public class UserGroup {
         return user;
       }
     }
-
     return null;
   }
 

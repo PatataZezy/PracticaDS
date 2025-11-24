@@ -41,11 +41,11 @@ public class Door {
             + this.id + "...");
     if (request.isAuthorized()) {
       Loggers.logger1.debug("Request at door " + this.id
-              + " " + request.getCredentialTimeAction()
-              + " authorised, proceeding to performing action...");
+          + " " + request.getCredentialTimeAction()
+          + " authorised, proceeding to performing action...");
       doAction(request.getAction());
-    }
-    if (!request.isAuthorized()) {
+      return;
+    } else {
       Loggers.logger1.info("Request at door " + this.id + " " + request.getCredentialTimeAction()
               + " unauthorised");
     }
@@ -74,12 +74,14 @@ public class Door {
 
       case Actions.UNLOCK_SHORTLY:
         this.state.unlockShortly();
+        // Needed in case the door was not locked (In that case it will not be unlocked shortly)
         if (this.state.getState().equals("unlocked_shortly")) {
           this.timerStart = LocalDateTime.now();
         }
         break;
 
       default:
+        Loggers.logger1.error("Unknown action detected");
         assert false : "Unknown action " + action;
         System.exit(-1);
     }
@@ -87,6 +89,10 @@ public class Door {
 
   public boolean isClosed() {
     return this.state.isClosed();
+  }
+
+  public boolean isPropped() {
+    return this.state.getState().equals("propped");
   }
 
   public String getId() {

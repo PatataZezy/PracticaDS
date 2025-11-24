@@ -89,6 +89,5 @@ public class RequestArea implements Request {
         requests.add(requestReader);
       }
     }
-
   }
 }

@@ -16,8 +16,7 @@ public class GetAreaByIdVisitor implements AreaVisitor {
   public void visitPartition(Partition partition) {
     if (partition.getId().equals(this.searchedId)) {
       this.area = partition;
-    }
-    if (this.area != null) {
+    } else if (this.area != null) {
       for (Area subarea : partition.getSubareas()) {
         subarea.acceptVisitor(this);
       }

@@ -1,7 +1,6 @@
 package baseNoStates;
 
 import baseNoStates.AreaVisitors.AreaVisitor;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 

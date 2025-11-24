@@ -114,8 +114,6 @@ public class RequestReader implements Request {
         authorized = true;
       }
     }
-
-    System.out.println(authorized ? 'T' : 'F');
   }
 }
 

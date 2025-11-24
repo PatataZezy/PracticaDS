@@ -32,5 +32,14 @@ package "DoorState" {
         + visitSpace(space : Space)
         + getResult() : Space
     }
+
+    class "GetProppedDoorsVisitors" implements "DoorState" {
+        - doors : Door[]
+        - searchedId : String
+        - isInDesiredArea : boolean
+        + visitPartition(partition : Partition)
+        + visitSpace(space : Space)
+        + getResult() : Door[]
+    }
 }
 @enduml

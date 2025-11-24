@@ -3,8 +3,6 @@ package baseNoStates.DoorState;
 import baseNoStates.Door;
 import baseNoStates.Loggers;
 
-import java.util.logging.Logger;
-
 // State where door is closed and locked
 public class Locked extends DoorState {
   public Locked(Door door) {

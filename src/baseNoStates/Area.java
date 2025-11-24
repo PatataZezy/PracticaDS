@@ -2,8 +2,6 @@ package baseNoStates;
 
 import baseNoStates.AreaVisitors.AreaVisitor;
 
-import java.util.ArrayList;
-
 // In this class we define what an area is and initialize values of the area, the area id, space and
 // access to the doors. Part of design pattern Composite to represent the space hierarchy.
 public abstract class Area { 

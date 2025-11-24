@@ -1,9 +1,13 @@
 package baseNoStates.AreaVisitors;
 
-import baseNoStates.*;
-
+import baseNoStates.Area;
+import baseNoStates.Door;
+import baseNoStates.Partition;
+import baseNoStates.Space;
 import java.util.ArrayList;
 
+// Visitor for DirectoryAreas where it traverses the entire tree to retrieve all doors under a
+// partition with a specific area ID
 public class GetDoorsUnderPartitionVisitor implements AreaVisitor {
   private ArrayList<Door> doors = null;
   private final String searchedId;

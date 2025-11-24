@@ -1,12 +1,12 @@
 package baseNoStates.AreaVisitors;
 
 import baseNoStates.Area;
-import baseNoStates.Door;
 import baseNoStates.Partition;
 import baseNoStates.Space;
-
 import java.util.ArrayList;
 
+// Visitor for DirectoryAreas where it traverses the entire tree to retrieve all spaces under an
+// area with a specific area ID
 public class GetSpacesInAreaVisitor implements AreaVisitor {
   private ArrayList<Space> spaces = new ArrayList<>();
   private final String searchedId;

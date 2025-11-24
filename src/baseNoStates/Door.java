@@ -5,10 +5,9 @@ import baseNoStates.DoorState.Locked;
 import baseNoStates.DoorState.Open;
 import baseNoStates.DoorState.Propped;
 import baseNoStates.requests.RequestReader;
-import org.json.JSONObject;
-
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import org.json.JSONObject;
 
 // This class represents any one door in the building, and will process any action regarding it. It
 // is also used as observer class with class Clock for handling temporary unlocked doors (See

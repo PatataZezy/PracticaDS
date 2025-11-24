@@ -1,7 +1,6 @@
 package baseNoStates;
 
 import baseNoStates.AreaVisitors.AreaVisitor;
-
 import java.util.ArrayList;
 
 // Area that contains other areas (ex. building contains basement, ground floor, etc.). Part of

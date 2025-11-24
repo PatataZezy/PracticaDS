@@ -63,7 +63,7 @@ public class RequestReader implements Request {
   }
 
   public String getCredentialTimeAction() {
-    return "(credential=" + this.credential + ", time=" + this.now.toString() + ", action"
+    return "(credential=" + this.credential + ", time=" + this.now.toString() + ", action="
             + this.action + ")";
   }
 

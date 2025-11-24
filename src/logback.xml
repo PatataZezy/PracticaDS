@@ -5,7 +5,15 @@
         </encoder>
     </appender>
 
+    <appender name="fileAppender" class="ch.qos.logback.core.FileAppender">
+        <file>./activity.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>%d [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
     <root level="debug">
-        <appender-ref ref="STDOUT" />
+        <appender-ref ref="fileAppender" />
     </root>
 </configuration>

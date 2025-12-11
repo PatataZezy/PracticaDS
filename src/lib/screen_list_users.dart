@@ -39,7 +39,6 @@ class _ScreenListUsersState extends State<ScreenListUsers> {
           setState(() {});
         },
       ),
-      drawer: TheDrawer(context).drawer,
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Theme.of(context).colorScheme.onPrimary,

@@ -6,7 +6,8 @@ import 'screen_list_users.dart';
 
 class ScreenListGroups extends StatefulWidget {
   List<UserGroup> userGroups;
-
+  ScreenListGroups({super.key,
+    required this.userGroups});
   ScreenListGroups({super.key, required this.userGroups});
 
   @override
@@ -63,7 +64,7 @@ class _ScreenListGroupsState extends State<ScreenListGroups> {
       trailing: Text('${userGroup.users.length}'),
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute<void>(
-          builder: (context) => ScreenListUsers(userGroup: userGroup),
+          builder: (context) => ScreenListUsers(userGroup: userGroup),// .then((var v) => setState(() {})),
         ));
       },
     );

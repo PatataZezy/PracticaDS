@@ -12,7 +12,9 @@ public final class DirectoryAreas {
   // Creates full area tree and array of all doors
   public static void makeAreas() {
     // Creating partitions/spaces
-    Partition building = new Partition("building", null);
+    Partition root = new Partition("ROOT", null);
+
+    Partition building = new Partition("building", root);
 
     Partition basement = new Partition("basement", building);
     Space parking = new Space("parking", basement);
@@ -41,10 +43,14 @@ public final class DirectoryAreas {
     Door d8 = new Door("D8", corridor, room3);
     Door d9 = new Door("D9", corridor, it);
 
-    rootArea = building;
+    rootArea = root;
     allDoors = new ArrayList<>(Arrays.asList(d1, d2, d3, d4, d5, d6, d7, d8, d9));
 
     Clock.addObservers(allDoors);
+  }
+
+  public static Area getRootArea() {
+    return rootArea;
   }
 
   public static Door findDoorById(String id) {

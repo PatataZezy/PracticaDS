@@ -1,6 +1,7 @@
 package baseNoStates;
 
 import baseNoStates.AreaVisitors.AreaVisitor;
+import org.json.JSONObject;
 
 // In this class we define what an area is and initialize values of the area, the area id, space and
 // access to the doors. Part of design pattern Composite to represent the space hierarchy.
@@ -24,4 +25,6 @@ public abstract class Area {
   public void acceptVisitor(AreaVisitor visitor) {
     this.processVisitor(visitor);
   }
+
+  public abstract JSONObject toJson(int depth);
 }

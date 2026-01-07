@@ -1,6 +1,7 @@
 package baseNoStates.AreaVisitors;
 
 import baseNoStates.Area;
+import baseNoStates.DirectoryAreas;
 import baseNoStates.Partition;
 import baseNoStates.Space;
 
@@ -16,7 +17,7 @@ public class GetAreaByIdVisitor implements AreaVisitor {
   public void visitPartition(Partition partition) {
     if (partition.getId().equals(this.searchedId)) {
       this.area = partition;
-    } else if (this.area != null) {
+    } else if (this.area == null) {
       for (Area subarea : partition.getSubareas()) {
         subarea.acceptVisitor(this);
       }

@@ -52,8 +52,12 @@ void unlockDoor(Door door) {
   performAction(door, 'unlock');
 }
 
+void unlockDoorShortly(Door door) {
+  performAction(door, 'unlock_shortly');
+}
+
 void performAction(Door door, String action) {
-  assert((action == 'lock') || (action == 'unlock') || (action == "open") || (action == "close"));
+  assert((action == 'lock') || (action == 'unlock') || (action == "open") || (action == "close") || (action == "unlock_shortly"));
   String strNow = DATEFORMATTER.format(DateTime.now());
   print(DateTime.now());
   print(strNow);

@@ -34,7 +34,7 @@ class _ScreenPartitionState extends State<ScreenPartition> {
             onPressed: () {
               Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(
-                  builder: (context) => const ScreenPartition(id: 'building'),
+                  builder: (context) => const ScreenPartition(id: 'ROOT'),
                 ),
                 (route) => false,
               );

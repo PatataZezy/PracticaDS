@@ -1,4 +1,5 @@
 import "dart:async";
+import 'package:doors_flutter/screen_partition.dart';
 import 'package:flutter/material.dart';
 import 'package:doors_flutter/tree.dart';
 import 'package:doors_flutter/requests.dart';
@@ -31,6 +32,14 @@ class _ScreenSpaceState extends State<ScreenSpace> {
     });
   }
 
+  @override
+  void dispose() {
+    // "The framework calls this method when this State object will never build again"
+    // therefore when going up
+    _timer.cancel();
+    super.dispose();
+  }
+
   void _refresh() {
     setState(() {
       futureTree = getDoorsRelated(widget.id);
@@ -46,6 +55,19 @@ class _ScreenSpaceState extends State<ScreenSpace> {
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Theme.of(context).colorScheme.onPrimary,
         title: Text(_formatName(widget.id)),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.home),
+            onPressed: () {
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                  builder: (context) => const ScreenPartition(id: 'ROOT'),
+                ),
+                    (route) => false,
+              );
+            },
+          ),
+        ],
       ),
       body: FutureBuilder<Tree>(
         future: futureTree,
@@ -121,7 +143,7 @@ class _ScreenSpaceState extends State<ScreenSpace> {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        'Current state: ${door.state}',
+                        'Current state: ${_formatName(door.state)}',
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.grey[600],
@@ -171,7 +193,6 @@ class _ScreenSpaceState extends State<ScreenSpace> {
           onPressed: door.state == 'locked' ? null : () {
             // Solo se puede abrir si está unlocked
             openDoor(door);
-            _activateTimer();
             _refresh();
           },
           icon: const Icon(Icons.door_sliding, size: 18),
@@ -231,7 +252,7 @@ class _ScreenSpaceState extends State<ScreenSpace> {
               borderRadius: BorderRadius.circular(20),
             ),
           ),
-          onPressed: door.closed ? () {
+          onPressed: (door.closed && (door.state == "unlocked")) ? () {
             // Solo se puede bloquear si está cerrada
             lockDoor(door);
             _refresh();
@@ -242,19 +263,38 @@ class _ScreenSpaceState extends State<ScreenSpace> {
       );
     }
 
+    buttons.add(
+      ElevatedButton.icon(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.lightGreenAccent,
+          foregroundColor: Colors.white,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+        ),
+        onPressed: (door.state == "locked") ? () {
+          unlockDoorShortly(door);
+          _refresh();
+        } : null,
+        icon: const Icon(Icons.timer, size: 18),
+        label: const Text('Unlock shortly'),
+      ),
+    );
+
     return buttons;
   }
 
   Color _getStateColor(String state) {
     switch (state) {
       case 'locked':
-        return Colors.red;
+        return Colors.orange;
       case 'unlocked':
         return Colors.green;
       case 'unlocked_shortly':
-        return Colors.orange;
+        return Colors.lightGreenAccent;
       case 'propped':
-        return Colors.deepOrange;
+        return Colors.red;
       default:
         return Colors.grey;
     }
@@ -263,6 +303,10 @@ class _ScreenSpaceState extends State<ScreenSpace> {
   String _formatName(String string) {
     if (string == "ROOT") {
       return "[Root]";
+    }
+
+    if (string == "IT") {
+      return "IT";
     }
 
     String result = string.replaceAll(RegExp(r"_"), " ");

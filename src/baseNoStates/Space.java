@@ -19,11 +19,14 @@ public class Space extends Area {
     }
 
     @Override
-    public Space[] getSpaces() {
-        Space[] thisSpace = new Space[1];
-        thisSpace[0] = this;
-        return thisSpace;
-    }
+    public void addDoor(Door newDoor) {
+        // Check if door already exists to avoid duplicates
+        for (int i = 0; i < this.doorsGivingAccess.length; i++) {
+            if (this.doorsGivingAccess[i] == newDoor) {
+                // Door already exists in this space, do nothing
+                return;
+            }
+        }
 
     public void addDoor(Door newDoor) {
         // creating deep copy of doors array

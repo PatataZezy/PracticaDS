@@ -38,7 +38,7 @@ class Tree {
     
     if (classType == 'partition') {
       // It's a partition with areas as children
-      List<dynamic> areasJson = json['areas'];
+      List<dynamic> areasJson = json['areas'] ?? [];
       List<Area> areas = [];
       
       for (var areaJson in areasJson) {
@@ -53,7 +53,7 @@ class Tree {
       root = Partition(json['id'], areas);
     } else if (classType == 'space') {
       // It's a space with doors as children
-      List<dynamic> doorsJson = json['accessdoors'];
+      List<dynamic> doorsJson = json['accessdoors'] ?? [];
       List<Door> doors = doorsJson.map((d) => Door.fromJson(d)).toList();
       root = Space(json['id'], doors);
     }

@@ -1,3 +1,4 @@
+import "dart:async";
 import 'package:flutter/material.dart';
 import 'package:doors_flutter/tree.dart';
 import 'package:doors_flutter/requests.dart';
@@ -14,10 +15,20 @@ class ScreenSpace extends StatefulWidget {
 class _ScreenSpaceState extends State<ScreenSpace> {
   late Future<Tree> futureTree;
 
+  late Timer _timer;
+  static const int periodRefresh = 1;
+
   @override
   void initState() {
     super.initState();
     futureTree = getDoorsRelated(widget.id);
+    _activateTimer();
+  }
+
+  void _activateTimer() {
+    _timer = Timer.periodic(Duration(seconds: periodRefresh), (Timer t) {
+      _refresh();
+    });
   }
 
   void _refresh() {
@@ -160,6 +171,7 @@ class _ScreenSpaceState extends State<ScreenSpace> {
           onPressed: door.state == 'locked' ? null : () {
             // Solo se puede abrir si está unlocked
             openDoor(door);
+            _activateTimer();
             _refresh();
           },
           icon: const Icon(Icons.door_sliding, size: 18),

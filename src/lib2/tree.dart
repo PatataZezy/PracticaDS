@@ -18,9 +18,9 @@ class Door {
   late String id;
   late bool closed;
   late String state;
-  
+
   Door({required this.id, this.state = "unlocked", this.closed = true});
-  
+
   Door.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     closed = json['closed'];
@@ -30,17 +30,17 @@ class Door {
 
 class Tree {
   late Area root;
-  
+
   Tree(this.root);
-  
+
   Tree.fromJson(Map<String, dynamic> json) {
     String classType = json['class'];
-    
+
     if (classType == 'partition') {
       // It's a partition with areas as children
       List<dynamic> areasJson = json['areas'] ?? [];
       List<Area> areas = [];
-      
+
       for (var areaJson in areasJson) {
         String areaClass = areaJson['class'];
         if (areaClass == 'partition') {
@@ -49,7 +49,7 @@ class Tree {
           areas.add(Space(areaJson['id'], [])); // Simplified, children loaded on demand
         }
       }
-      
+
       root = Partition(json['id'], areas);
     } else if (classType == 'space') {
       // It's a space with doors as children

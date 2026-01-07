@@ -27,6 +27,14 @@ Future<Tree> getTree(String areaId) async {
   });
 }
 
+Future<Tree> getDoorsRelated(String spaceId) async {
+  Uri uri = Uri.parse("$BASE_URL/related_doors?$spaceId");
+  return sendRequest(uri).then((http.Response response) {
+    Map<String, dynamic> decoded = convert.jsonDecode(response.body);
+    return Tree.fromJson(decoded);
+  });
+}
+
 void lockDoor(Door door) {
   lockUnlockDoor(door, 'lock');
 }

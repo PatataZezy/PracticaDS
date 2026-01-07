@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tutorial_acs/screen_partition.dart';
+import 'package:doors_flutter/screen_partition.dart';
 
 void main() {
   runApp(const MyApp());

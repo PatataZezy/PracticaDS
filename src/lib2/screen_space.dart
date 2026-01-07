@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tutorial_acs/tree.dart';
-import 'package:tutorial_acs/requests.dart';
+import 'package:doors_flutter/tree.dart';
+import 'package:doors_flutter/requests.dart';
 
 class ScreenSpace extends StatefulWidget {
   final String id;
@@ -17,12 +17,12 @@ class _ScreenSpaceState extends State<ScreenSpace> {
   @override
   void initState() {
     super.initState();
-    futureTree = getTree(widget.id);
+    futureTree = getDoorsRelated(widget.id);
   }
 
   void _refresh() {
     setState(() {
-      futureTree = getTree(widget.id);
+      futureTree = getDoorsRelated(widget.id);
     });
   }
 
@@ -34,7 +34,7 @@ class _ScreenSpaceState extends State<ScreenSpace> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Theme.of(context).colorScheme.onPrimary,
-        title: Text(widget.id),
+        title: Text(_formatName(widget.id)),
       ),
       body: FutureBuilder<Tree>(
         future: futureTree,
@@ -102,7 +102,7 @@ class _ScreenSpaceState extends State<ScreenSpace> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        door.id,
+                        _formatName(door.id),
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -199,5 +199,20 @@ class _ScreenSpaceState extends State<ScreenSpace> {
       default:
         return Colors.grey;
     }
+  }
+
+  String _formatName(String string) {
+    if (string == "ROOT") {
+      return "[Root]";
+    }
+
+    String result = string.replaceAll(RegExp(r"_"), " ");
+
+    result = result.replaceAll(RegExp(r"1"), " 1");
+    result = result.replaceAll(RegExp(r"2"), " 2");
+    result = result.replaceAll(RegExp(r"3"), " 3");
+
+    result = "${result[0].toUpperCase()}${result.substring(1).toLowerCase()}";
+    return result;
   }
 }

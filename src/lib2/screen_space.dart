@@ -144,14 +144,58 @@ class _ScreenSpaceState extends State<ScreenSpace> {
   List<Widget> _buildActionButtons(Door door) {
     List<Widget> buttons = [];
 
-    // Lock/Unlock button based on state
-    if (door.state == 'locked') {
+    // Open/Close button based on door.closed
+    if (door.closed) {
+      // Puerta cerrada, mostrar botón Open
       buttons.add(
-        ElevatedButton(
+        ElevatedButton.icon(
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.green,
             foregroundColor: Colors.white,
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+          ),
+          onPressed: door.state == 'locked' ? null : () {
+            // Solo se puede abrir si está unlocked
+            openDoor(door);
+            _refresh();
+          },
+          icon: const Icon(Icons.door_sliding, size: 18),
+          label: const Text('Open'),
+        ),
+      );
+    } else {
+      // Puerta abierta, mostrar botón Close
+      buttons.add(
+        ElevatedButton.icon(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.orange,
+            foregroundColor: Colors.white,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+          ),
+          onPressed: () {
+            closeDoor(door);
+            _refresh();
+          },
+          icon: const Icon(Icons.door_front_door, size: 18),
+          label: const Text('Close'),
+        ),
+      );
+    }
+
+    // Lock/Unlock button based on state
+    if (door.state == 'locked') {
+      buttons.add(
+        ElevatedButton.icon(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.blue,
+            foregroundColor: Colors.white,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
@@ -160,25 +204,28 @@ class _ScreenSpaceState extends State<ScreenSpace> {
             unlockDoor(door);
             _refresh();
           },
-          child: const Text('Unlock'),
+          icon: const Icon(Icons.lock_open, size: 18),
+          label: const Text('Unlock'),
         ),
       );
     } else {
       buttons.add(
-        ElevatedButton(
+        ElevatedButton.icon(
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.red,
             foregroundColor: Colors.white,
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
           ),
-          onPressed: () {
+          onPressed: door.closed ? () {
+            // Solo se puede bloquear si está cerrada
             lockDoor(door);
             _refresh();
-          },
-          child: const Text('Lock'),
+          } : null,
+          icon: const Icon(Icons.lock, size: 18),
+          label: const Text('Lock'),
         ),
       );
     }

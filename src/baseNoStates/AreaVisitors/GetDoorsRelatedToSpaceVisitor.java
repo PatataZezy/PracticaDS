@@ -8,11 +8,11 @@ import baseNoStates.Space;
 import java.util.ArrayList;
 
 public class GetDoorsRelatedToSpaceVisitor implements AreaVisitor {
-  private ArrayList<Door> doors;
+  private Space space;
   private final String spaceId;
 
   public GetDoorsRelatedToSpaceVisitor(String spaceId) {
-    this.doors = new ArrayList<>();
+    this.space = new Space(spaceId, null);
     this.spaceId = spaceId;
   }
 
@@ -24,14 +24,14 @@ public class GetDoorsRelatedToSpaceVisitor implements AreaVisitor {
 
   public void visitSpace(Space space) {
     for (Door door : space.getDoorsGivingAccess()) {
-      if (door.getSpaceComingFrom().equals(this.spaceId)
-          || door.getSpaceLeadingTo().equals(this.spaceId)) {
-        this.doors.add(door);
+      if (door.getSpaceComingFrom().getId().equals(this.spaceId)
+          || door.getSpaceLeadingTo().getId().equals(this.spaceId)) {
+        this.space.addDoor(door);
       }
     }
   }
 
-  public ArrayList<Door> getResult() {
-    return this.doors;
+  public Space getResult() {
+    return this.space;
   }
 }

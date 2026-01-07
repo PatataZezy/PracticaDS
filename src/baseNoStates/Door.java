@@ -117,6 +117,8 @@ public class Door {
     json.put("id", id);
     json.put("state", getStateName());
     json.put("closed", this.isClosed());
+    json.put("from", this.spaceComingFrom.id);
+    json.put("to", this.spaceLeadingTo.id);
     return json;
   }
 

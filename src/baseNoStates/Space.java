@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Space extends Area {
   ArrayList<Door> doorsGivingAccess;
 
-  Space(String id, Partition father) {
+  public Space(String id, Partition father) {
     super(id, father);
     this.doorsGivingAccess = new ArrayList<>();
   }

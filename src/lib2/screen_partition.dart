@@ -75,7 +75,7 @@ class _ScreenPartitionState extends State<ScreenPartition> {
     
     if (area is Partition) {
       return ListTile(
-        leading: const Icon(Icons.folder, color: Colors.blue, size: 32),
+        leading: _getPartitionIcon(area.id),
         title: Text(area.id, style: const TextStyle(fontSize: 18)),
         trailing: const Icon(Icons.arrow_forward_ios),
         onTap: () {
@@ -100,5 +100,48 @@ class _ScreenPartitionState extends State<ScreenPartition> {
         },
       );
     }
+  }
+
+  Widget _getPartitionIcon(String partitionId) {
+    // Mostrar indicadores de planta para las partitions principales
+    String label;
+    Color backgroundColor;
+    
+    switch (partitionId) {
+      case 'basement':
+        label = 'P-1';
+        backgroundColor = Colors.brown.shade700;
+        break;
+      case 'ground_floor':
+        label = 'P0';
+        backgroundColor = Colors.blue.shade700;
+        break;
+      case 'floor1':
+        label = 'P1';
+        backgroundColor = Colors.purple.shade700;
+        break;
+      default:
+        // Para otras partitions, usar icono de carpeta
+        return const Icon(Icons.folder, color: Colors.blue, size: 32);
+    }
+    
+    return Container(
+      width: 40,
+      height: 40,
+      decoration: BoxDecoration(
+        color: backgroundColor,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Center(
+        child: Text(
+          label,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
   }
 }

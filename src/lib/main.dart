@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         ),
         // see https://docs.flutter.dev/cookbook/design/themes
       ),
-      home: const ScreenBlank(),
+      home: const ScreenPartition(id: 'building')
     );
   }
 }

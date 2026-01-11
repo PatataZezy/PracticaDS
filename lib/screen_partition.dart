@@ -67,6 +67,38 @@ class _ScreenPartitionState extends State<ScreenPartition> {
           );
         },
       ),
+      persistentFooterButtons: [
+        ElevatedButton.icon(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.red,
+            foregroundColor: Colors.white,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+          ),
+          onPressed: () {
+            lockAllUnderArea(widget.id);
+          },
+          icon: const Icon(Icons.lock, size: 18),
+          label: const Text('Lock all doors here'),
+        ),
+        ElevatedButton.icon(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.blue,
+            foregroundColor: Colors.white,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+          ),
+          onPressed: () {
+            unlockAllUnderArea(widget.id);
+          },
+          icon: const Icon(Icons.lock_open, size: 18),
+          label: const Text('Unlock all doors here'),
+        ),
+      ],
     );
   }
 
@@ -109,17 +141,19 @@ class _ScreenPartitionState extends State<ScreenPartition> {
     
     switch (partitionId) {
       case 'basement':
-        label = 'P-1';
+        label = '-1';
         backgroundColor = Colors.brown.shade700;
         break;
       case 'ground_floor':
-        label = 'P0';
+        label = '0';
         backgroundColor = Colors.blue.shade700;
         break;
       case 'floor1':
-        label = 'P1';
+        label = '1';
         backgroundColor = Colors.purple.shade700;
         break;
+      case "building":
+        return const Icon(Icons.location_city, color: Colors.blue, size: 32);
       default:
         // Para otras partitions, usar icono de carpeta
         return const Icon(Icons.folder, color: Colors.blue, size: 32);
@@ -147,7 +181,7 @@ class _ScreenPartitionState extends State<ScreenPartition> {
 
   String _formatName(String string) {
     if (string == "ROOT") {
-      return "[Root]";
+      return "ACS System";
     }
 
     if (string == "IT") {

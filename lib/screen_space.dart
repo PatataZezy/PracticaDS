@@ -109,6 +109,38 @@ class _ScreenSpaceState extends State<ScreenSpace> {
           );
         },
       ),
+      persistentFooterButtons: [
+        ElevatedButton.icon(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.red,
+            foregroundColor: Colors.white,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+          ),
+          onPressed: () {
+            lockAllUnderArea(widget.id);
+          },
+          icon: const Icon(Icons.lock, size: 18),
+          label: const Text('Lock all doors here'),
+        ),
+        ElevatedButton.icon(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.blue,
+            foregroundColor: Colors.white,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+          ),
+          onPressed: () {
+            unlockAllUnderArea(widget.id);
+          },
+          icon: const Icon(Icons.lock_open, size: 18),
+          label: const Text('Unlock all doors here'),
+        ),
+      ],
     );
   }
 

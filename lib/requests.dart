@@ -37,27 +37,34 @@ Future<Tree> getDoorsRelated(String spaceId) async {
 
 
 void openDoor(Door door) {
-  performAction(door, "open");
+  performActionDoor(door, "open");
 }
 
 void closeDoor(Door door) {
-  performAction(door, "close");
+  performActionDoor(door, "close");
 }
 
 void lockDoor(Door door) {
-  performAction(door, 'lock');
+  performActionDoor(door, 'lock');
 }
 
 void unlockDoor(Door door) {
-  performAction(door, 'unlock');
+  performActionDoor(door, 'unlock');
 }
 
 void unlockDoorShortly(Door door) {
-  performAction(door, 'unlock_shortly');
+  performActionDoor(door, 'unlock_shortly');
 }
 
-void performAction(Door door, String action) {
-  assert((action == 'lock') || (action == 'unlock') || (action == "open") || (action == "close") || (action == "unlock_shortly"));
+void lockAllUnderArea(String areaId) {
+  performActionArea(areaId, "lock");
+}
+
+void unlockAllUnderArea(String areaId) {
+  performActionArea(areaId, "unlock");
+}
+
+void performActionDoor(Door door, String action) {
   String strNow = DATEFORMATTER.format(DateTime.now());
   print(DateTime.now());
   print(strNow);
@@ -65,5 +72,13 @@ void performAction(Door door, String action) {
       "$BASE_URL/reader?credential=11343&action=$action&datetime=$strNow&doorId=${door.id}");
   print('door ${door.id} is ${door.state}');
   print('$action ${door.id}, uri $uri');
+  sendRequest(uri);
+}
+
+void performActionArea(String areaId, String action) {
+  String strNow = DATEFORMATTER.format(DateTime.now());
+  print(DateTime.now());
+  Uri uri = Uri.parse(
+      "$BASE_URL/area?credential=11343&action=$action&datetime=$strNow&areaId=${areaId}");
   sendRequest(uri);
 }

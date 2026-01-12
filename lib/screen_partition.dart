@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:doors_flutter/translations.dart';
 import 'package:doors_flutter/tree.dart';
 import 'package:doors_flutter/requests.dart';
 import 'package:doors_flutter/screen_space.dart';
@@ -29,6 +30,21 @@ class _ScreenPartitionState extends State<ScreenPartition> {
         foregroundColor: Theme.of(context).colorScheme.onPrimary,
         title: Text(_formatName(widget.id)),
         actions: <Widget>[
+          PopupMenuButton<String>(
+            icon: const Icon(Icons.language),
+            initialValue: language,
+            onSelected: (String newLanguage) {
+              language = newLanguage;
+              setState(() {
+                futureTree = getTree(widget.id);
+              });
+            },
+            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+              const PopupMenuItem<String>(value: "Català", child: Text("Català")),
+              const PopupMenuItem<String>(value: "Castellano", child: Text("Castellano")),
+              const PopupMenuItem<String>(value: "English", child: Text("English")),
+            ],
+          ),
           IconButton(
             icon: const Icon(Icons.home),
             onPressed: () {
@@ -36,7 +52,7 @@ class _ScreenPartitionState extends State<ScreenPartition> {
                 MaterialPageRoute(
                   builder: (context) => const ScreenPartition(id: 'ROOT'),
                 ),
-                (route) => false,
+                    (route) => false,
               );
             },
           ),
@@ -81,7 +97,7 @@ class _ScreenPartitionState extends State<ScreenPartition> {
             lockAllUnderArea(widget.id);
           },
           icon: const Icon(Icons.lock, size: 18),
-          label: const Text('Lock all doors here'),
+          label: Text(translate('Lock all doors here')),
         ),
         ElevatedButton.icon(
           style: ElevatedButton.styleFrom(
@@ -96,7 +112,7 @@ class _ScreenPartitionState extends State<ScreenPartition> {
             unlockAllUnderArea(widget.id);
           },
           icon: const Icon(Icons.lock_open, size: 18),
-          label: const Text('Unlock all doors here'),
+          label: Text(translate('Unlock all doors here')),
         ),
       ],
     );
@@ -120,7 +136,7 @@ class _ScreenPartitionState extends State<ScreenPartition> {
       );
     } else {
       return ListTile(
-        leading: const Icon(Icons.meeting_room, color: Colors.green, size: 32),
+        leading: _getSpaceIcon(area.id),
         title: Text(_formatName(area.id), style: const TextStyle(fontSize: 18)),
         trailing: const Icon(Icons.arrow_forward_ios),
         onTap: () {
@@ -163,7 +179,7 @@ class _ScreenPartitionState extends State<ScreenPartition> {
       width: 40,
       height: 40,
       decoration: BoxDecoration(
-        color: backgroundColor,
+        color: Colors.blue,  // backgroundColor,
         borderRadius: BorderRadius.circular(8),
       ),
       child: Center(
@@ -179,13 +195,32 @@ class _ScreenPartitionState extends State<ScreenPartition> {
     );
   }
 
+  Widget _getSpaceIcon(String spaceId) {
+    switch (spaceId) {
+      case "stairs":
+        return const Icon(Icons.stairs, color: Colors.green, size: 32);
+      case "exterior":
+        return const Icon(Icons.park, color: Colors.green, size: 32);
+      case "parking":
+        return const Icon(Icons.fire_truck, color: Colors.green, size: 32);
+      case "room1":
+      case "room2":
+      case "room3":
+        return const Icon(Icons.space_dashboard, color: Colors.green, size: 32);
+      case "IT":
+        return const Icon(Icons.computer, color: Colors.green, size: 32);
+      default:
+        return const Icon(Icons.meeting_room, color: Colors.green, size: 32);
+    }
+  }
+
   String _formatName(String string) {
     if (string == "ROOT") {
-      return "ACS System";
+      return translate("ACS System");
     }
 
     if (string == "IT") {
-      return "IT";
+      return translate("IT");
     }
 
     String result = string.replaceAll(RegExp(r"_"), " ");
@@ -194,6 +229,6 @@ class _ScreenPartitionState extends State<ScreenPartition> {
     result = result.replaceAll(RegExp(r"room"), "room ");
 
     result = "${result[0].toUpperCase()}${result.substring(1).toLowerCase()}";
-    return result;
+    return translate(result);
   }
 }

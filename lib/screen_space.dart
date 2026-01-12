@@ -3,6 +3,7 @@ import 'package:doors_flutter/screen_partition.dart';
 import 'package:flutter/material.dart';
 import 'package:doors_flutter/tree.dart';
 import 'package:doors_flutter/requests.dart';
+import 'package:doors_flutter/translations.dart';
 
 class ScreenSpace extends StatefulWidget {
   final String id;
@@ -56,6 +57,21 @@ class _ScreenSpaceState extends State<ScreenSpace> {
         foregroundColor: Theme.of(context).colorScheme.onPrimary,
         title: Text(_formatName(widget.id)),
         actions: <Widget>[
+          PopupMenuButton<String>(
+            icon: const Icon(Icons.language),
+            initialValue: language,
+            onSelected: (String newLanguage) {
+              language = newLanguage;
+              setState(() {
+                futureTree = getTree(widget.id);
+              });
+            },
+            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+              const PopupMenuItem<String>(value: "Català", child: Text("Català")),
+              const PopupMenuItem<String>(value: "Castellano", child: Text("Castellano")),
+              const PopupMenuItem<String>(value: "English", child: Text("English")),
+            ],
+          ),
           IconButton(
             icon: const Icon(Icons.home),
             onPressed: () {
@@ -109,38 +125,6 @@ class _ScreenSpaceState extends State<ScreenSpace> {
           );
         },
       ),
-      persistentFooterButtons: [
-        ElevatedButton.icon(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.red,
-            foregroundColor: Colors.white,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-          ),
-          onPressed: () {
-            lockAllUnderArea(widget.id);
-          },
-          icon: const Icon(Icons.lock, size: 18),
-          label: const Text('Lock all doors here'),
-        ),
-        ElevatedButton.icon(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.blue,
-            foregroundColor: Colors.white,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-          ),
-          onPressed: () {
-            unlockAllUnderArea(widget.id);
-          },
-          icon: const Icon(Icons.lock_open, size: 18),
-          label: const Text('Unlock all doors here'),
-        ),
-      ],
     );
   }
 
@@ -175,14 +159,14 @@ class _ScreenSpaceState extends State<ScreenSpace> {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        'Current state: ${_formatName(door.state)}',
+                        translate('Current state: ') + _formatName(door.state),
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.grey[600],
                         ),
                       ),
                       Text(
-                        door.closed ? 'Closed' : 'Opened',
+                        translate(door.closed ? 'Closed' : 'Opened'),
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.grey[600],
@@ -228,7 +212,7 @@ class _ScreenSpaceState extends State<ScreenSpace> {
             _refresh();
           },
           icon: const Icon(Icons.door_sliding, size: 18),
-          label: const Text('Open'),
+          label: Text(translate('Open')),
         ),
       );
     } else {
@@ -248,7 +232,7 @@ class _ScreenSpaceState extends State<ScreenSpace> {
             _refresh();
           },
           icon: const Icon(Icons.door_front_door, size: 18),
-          label: const Text('Close'),
+          label: Text(translate('Close')),
         ),
       );
     }
@@ -270,7 +254,7 @@ class _ScreenSpaceState extends State<ScreenSpace> {
             _refresh();
           },
           icon: const Icon(Icons.lock_open, size: 18),
-          label: const Text('Unlock'),
+          label: Text(translate('Unlock')),
         ),
       );
     } else {
@@ -290,7 +274,7 @@ class _ScreenSpaceState extends State<ScreenSpace> {
             _refresh();
           } : null,
           icon: const Icon(Icons.lock, size: 18),
-          label: const Text('Lock'),
+          label: Text(translate('Lock')),
         ),
       );
     }
@@ -310,7 +294,7 @@ class _ScreenSpaceState extends State<ScreenSpace> {
           _refresh();
         } : null,
         icon: const Icon(Icons.timer, size: 18),
-        label: const Text('Unlock shortly'),
+        label: Text(translate('Unlock shortly')),
       ),
     );
 
@@ -333,12 +317,8 @@ class _ScreenSpaceState extends State<ScreenSpace> {
   }
 
   String _formatName(String string) {
-    if (string == "ROOT") {
-      return "[Root]";
-    }
-
     if (string == "IT") {
-      return "IT";
+      return translate("IT");
     }
 
     String result = string.replaceAll(RegExp(r"_"), " ");
@@ -347,13 +327,13 @@ class _ScreenSpaceState extends State<ScreenSpace> {
     result = result.replaceAll(RegExp(r"room"), "room ");
 
     result = "${result[0].toUpperCase()}${result.substring(1).toLowerCase()}";
-    return result;
+    return translate(result);
   }
 
   String _getDoorName(Door door) {
     if (door.spaceComingFrom == widget.id) {
-      return "To " + _formatName(door.spaceLeadingTo);
+      return translate("To ") + _formatName(door.spaceLeadingTo);
     }
-    return "From " + _formatName(door.spaceComingFrom);
+    return translate("From ") + _formatName(door.spaceComingFrom);
   }
 }
